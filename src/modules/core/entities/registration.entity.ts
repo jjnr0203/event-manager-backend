@@ -15,7 +15,7 @@ export class RegistrationEntity{
     createdAt:Date;
 
     @DeleteDateColumn({
-        name: 'created_at',
+        name: 'deleted_at',
         type: 'timestamp',
         nullable: true,
     })
