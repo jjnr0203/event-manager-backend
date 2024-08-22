@@ -12,14 +12,14 @@ export class RegistrationEntity{
         default: ()=>'CURRENT_TIMESTAMP',
         nullable:true,
     })
-    createdAt:string;
+    createdAt:Date;
 
     @DeleteDateColumn({
         name: 'created_at',
         type: 'timestamp',
         nullable: true,
     })
-    deletedAt:string;
+    deletedAt:Date;
 
     @Column({
         type: 'timestamp',

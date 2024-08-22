@@ -10,7 +10,7 @@ export class CataloguesEntity{
         type: 'timestamp',
         nullable: true
     })
-    createdAt:string;
+    createdAt:Date;
 
     @Column({
         name: 'name',
