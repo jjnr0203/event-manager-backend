@@ -1,36 +1,40 @@
-import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity('catolgues',{schema:'core'})
-export class CataloguesEntity{
-    @PrimaryGeneratedColumn('uuid')
-    id:string
+@Entity('catalogues', { schema: 'core' })
+export class CatalogueEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @DeleteDateColumn({
-        name: 'deleted_at',
-        type: 'timestamp',
-        nullable: true
-    })
-    createdAt:Date;
+  @DeleteDateColumn({
+    name: 'deleted_at',
+    type: 'timestamp',
+    nullable: true,
+  })
+  createdAt: Date;
 
-    @Column({
-        name: 'name',
-        type: 'varchar',
-        nullable: false,
-    })
-    name:string;
+  @Column({
+    name: 'name',
+    type: 'varchar',
+    nullable: false,
+  })
+  name: string;
 
-    @Column({
-        name: 'type',
-        type: 'varchar',
-        nullable: false,
-    })
-    type:string;
+  @Column({
+    name: 'type',
+    type: 'varchar',
+    nullable: false,
+  })
+  type: string;
 
-    @Column({
-        name: 'code',
-        type: 'int',
-        nullable: false,
-    })
-    code:number;
-
+  @Column({
+    name: 'code',
+    type: 'int',
+    nullable: false,
+  })
+  code: number;
 }

@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('events', { schema: 'core' })
-export class EventEntity {
+@Entity('informations_organizators', { schema: 'core' })
+export class InformationOrganizator {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -15,7 +15,7 @@ export class EventEntity {
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true,
+    comment: 'Fecha de creacion del archivo',
   })
   createdAt: Date;
 
@@ -23,41 +23,56 @@ export class EventEntity {
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,
+    comment: 'Fecha de eliminacion del archivo',
   })
   deletedAt: Date;
 
   @Column({
-    type: 'varchar',
     name: 'name',
+    type: 'varchar',
     nullable: false,
   })
   name: string;
 
   @Column({
+    name: 'logo',
     type: 'varchar',
+    nullable: false,
+  })
+  logo: string;
+
+  @Column({
+    name: 'email',
+    type: 'varchar',
+    nullable: false,
+  })
+  email: string;
+
+  @Column({
+    name: 'phone',
+    type: 'varchar',
+    nullable: false,
+  })
+  phone: string;
+
+  @Column({
+    name: 'acronym',
+    type: 'varchar',
+    nullable: false,
+  })
+  acronym: string;
+
+  @Column({
     name: 'description',
+    type: 'varchar',
     nullable: false,
   })
   description: string;
 
   @Column({
-    type: Date,
-    name: 'start_date',
-    nullable: false,
-  })
-  start_date: Date;
-
-  @Column({
-    type: Date,
-    name: 'end_date',
-    nullable: false,
-  })
-  end_date: Date;
-
-  @Column({
+    name: 'social_media',
     type: 'varchar',
-    name: 'state',
     nullable: false,
   })
-  state: string;
+  socialMedia: string;
 }

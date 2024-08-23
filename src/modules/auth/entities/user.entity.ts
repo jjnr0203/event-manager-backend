@@ -1,5 +1,5 @@
 import {
-    Column,
+  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
@@ -28,44 +28,44 @@ export class UserEntity {
   deletedAt: Date;
 
   @Column({
-    name:'user_name',
-    type:'varchar',
+    name: 'user_name',
+    type: 'varchar',
     nullable: false,
   })
-  userName:string;
+  userName: string;
 
   @Column({
-    name:'name',
-    type:'varchar',
+    name: 'name',
+    type: 'varchar',
     nullable: false,
   })
-  name:string;
+  name: string;
 
   @Column({
-    name:'last_name',
-    type:'varchar',
+    name: 'last_name',
+    type: 'varchar',
     nullable: false,
   })
-  lastName:string;
+  lastName: string;
 
   @Column({
-    name:'email',
-    type:'varchar',
+    name: 'email',
+    type: 'varchar',
     nullable: false,
   })
-  email:string;
+  email: string;
 
   @Column({
-    name:'password',
-    type:'varchar',
+    name: 'password',
+    type: 'varchar',
     nullable: false,
   })
-  password:string;
+  password: string;
 
   @Column({
-    name:'identification',
-    type:'int',
+    name: 'identification',
+    type: 'int',
     nullable: false,
   })
-  identification:number;
+  identification: number;
 }

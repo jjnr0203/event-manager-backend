@@ -43,8 +43,8 @@ export class FeedbackEntity {
 
   @Column({
     type: 'varchar',
-    name: 'ticket_type',
+    name: 'type',
     nullable: true,
   })
-  ticketType: string;
+  type: string;
 }

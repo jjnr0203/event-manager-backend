@@ -1,21 +1,20 @@
 import {
-  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('sponsors', { schema: 'core' })
-export class SponsorEntity {
+@Entity('collaborator', { schema: 'core' })
+export class UserNotificationEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    nullable: true,
+    default: () => 'CURRENT_timestamp',
+    comment: 'Fecha de creacion del colaborador',
   })
   createdAt: Date;
 
@@ -23,21 +22,10 @@ export class SponsorEntity {
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,
+    comment: 'Fecha de eliminacion del colaborador',
   })
   deletedAt: Date;
 
-  @Column({
-    name: 'email',
-    type: 'text',
-    nullable: false,
-  })
-  email: string;
-
-  @Column({
-    name: 'contact',
-    type: 'text',
-    nullable: false,
-  })
-  contact: string;
-
+//   user and notification relatinship
 }
+    

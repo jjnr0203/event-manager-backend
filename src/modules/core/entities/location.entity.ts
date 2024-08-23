@@ -1,14 +1,17 @@
-import { register } from 'module';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('registrations', { schema: 'core' })
-export class RegistrationEntity {
+@Entity('locations', { schema: 'core' })
+export class LocationEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -16,7 +19,7 @@ export class RegistrationEntity {
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true,
+    comment: 'Fecha de creacion del archivo',
   })
   createdAt: Date;
 
@@ -24,20 +27,21 @@ export class RegistrationEntity {
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,
+    comment: 'Fecha de eliminacion del archivo',
   })
   deletedAt: Date;
 
   @Column({
-    type: 'timestamp',
-    name: 'registed_at',
+    name: 'capacity',
+    type: 'integer',
     nullable: false,
   })
-  registeredAt: string;
+  capacity: number;
 
   @Column({
-    type: Boolean,
-    name: 'attended',
+    name: 'disponibility',
+    type: 'boolean',
     nullable: false,
   })
-  attended: string;
+  disponibility: number;
 }

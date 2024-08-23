@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('feedbacks', { schema: 'core' })
 export class FeedbackEntity {
@@ -10,23 +16,22 @@ export class FeedbackEntity {
     type: 'timestamp',
     nullable: true,
   })
-  deletedAt:Date;
+  deletedAt: Date;
 
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
-    default: ()=> 'CURRENT_TIMESTAMP',
+    default: () => 'CURRENT_TIMESTAMP',
     nullable: true,
   })
   createdAt: Date;
 
-  @Column({type: 'int', name:'rating', nullable:false})
+  @Column({ type: 'int', name: 'rating', nullable: false })
   rating: string;
 
-  @Column({type: 'varchar', name: 'comment', nullable:false})
+  @Column({ type: 'varchar', name: 'comment', nullable: false })
   comment: string;
 
-  @Column({type: Date , name: 'feedback_date', nullable:false})
+  @Column({ type: Date, name: 'feedback_date', nullable: false })
   feedback_date: string;
-
 }

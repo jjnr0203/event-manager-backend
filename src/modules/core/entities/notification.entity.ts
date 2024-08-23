@@ -1,4 +1,3 @@
-import { register } from 'module';
 import {
   Column,
   CreateDateColumn,
@@ -7,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('registrations', { schema: 'core' })
-export class RegistrationEntity {
+@Entity('notificatinos', { schema: 'core' })
+export class NotificationEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -16,7 +15,7 @@ export class RegistrationEntity {
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true,
+    comment: 'Fecha de creacion del archivo',
   })
   createdAt: Date;
 
@@ -24,20 +23,21 @@ export class RegistrationEntity {
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,
+    comment: 'Fecha de eliminacion del archivo',
   })
   deletedAt: Date;
 
   @Column({
-    type: 'timestamp',
-    name: 'registed_at',
+    name: 'title',
+    type: 'varchar',
     nullable: false,
   })
-  registeredAt: string;
+  title: string;
 
   @Column({
-    type: Boolean,
-    name: 'attended',
+    name: 'message',
+    type: 'varchar',
     nullable: false,
   })
-  attended: string;
+  message: string;
 }
