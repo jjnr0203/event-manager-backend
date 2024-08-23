@@ -60,4 +60,5 @@ export class EventEntity {
     nullable: false,
   })
   state: string;
+  feedbacks: any;
 }

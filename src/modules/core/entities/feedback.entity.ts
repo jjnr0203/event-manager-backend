@@ -3,8 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
+import { EventEntity } from './event.entity';
 
 @Entity('feedbacks', { schema: 'core' })
 export class FeedbackEntity {
@@ -34,4 +38,12 @@ export class FeedbackEntity {
 
   @Column({ type: Date, name: 'feedback_date', nullable: false })
   feedback_date: string;
+
+  @ManyToOne(() => UserEntity, (user) => user.feedbacks)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user_id: UserEntity;
+
+  @ManyToOne(() => EventEntity, (event) => event.feedbacks)
+  @JoinColumn({ name: 'event_id', referencedColumnName: 'id' })
+  event_id: UserEntity;
 }

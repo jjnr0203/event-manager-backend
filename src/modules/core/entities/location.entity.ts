@@ -44,4 +44,5 @@ export class LocationEntity{
     nullable: false,
   })
   disponibility: number;
+  venues: any;
 }

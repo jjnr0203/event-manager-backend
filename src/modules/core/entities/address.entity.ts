@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   Column,
-} from 'typeorm';
+  } from 'typeorm';
 
 @Entity('addresses', { schema: 'core' })
 export class AddressEntity {

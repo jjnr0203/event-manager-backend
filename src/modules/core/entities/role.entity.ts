@@ -11,7 +11,7 @@ import {
   JoinTable,
 } from 'typeorm';
 
-@Entity('roles', { schema: 'auth' })
+@Entity('roles', { schema: 'core' })
 export class RoleEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

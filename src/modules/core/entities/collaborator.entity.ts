@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('collaborator', { schema: 'core' })
+@Entity('collaborators', { schema: 'core' })
 export class CollaboratorEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

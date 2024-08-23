@@ -3,8 +3,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { LocationEntity } from './location.entity';
+import { AddressEntity } from './address.entity';
 
 @Entity('venues', { schema: 'core' })
 export class VenueEntity {
@@ -54,4 +59,11 @@ export class VenueEntity {
     nullable: false,
   })
   isLimited: string;
+
+  @OneToMany(()=>LocationEntity, (locations)=>locations.venues)
+  locations: LocationEntity[];
+
+  @OneToOne(()=>AddressEntity)
+  @JoinColumn({name:'address_id', referencedColumnName:'id'})
+  addresses:AddressEntity
 }

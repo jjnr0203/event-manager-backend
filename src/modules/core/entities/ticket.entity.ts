@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity('tickets', { schema: 'core' })
-export class FeedbackEntity {
+export class TicketEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -47,4 +47,5 @@ export class FeedbackEntity {
     nullable: true,
   })
   type: string;
+  payments: any;
 }

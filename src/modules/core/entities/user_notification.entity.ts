@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('collaborator', { schema: 'core' })
+@Entity('users_notifications', { schema: 'core' })
 export class UserNotificationEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

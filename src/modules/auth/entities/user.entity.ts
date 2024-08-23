@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('users', { schema: 'core' })
+@Entity('users', { schema: 'auth' })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -68,4 +68,6 @@ export class UserEntity {
     nullable: false,
   })
   identification: number;
+  feedbacks: any;
+  payments: any;
 }

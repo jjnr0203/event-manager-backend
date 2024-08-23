@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('notificatinos', { schema: 'core' })
+@Entity('notifications', { schema: 'core' })
 export class NotificationEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

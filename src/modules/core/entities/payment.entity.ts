@@ -1,3 +1,4 @@
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,7 +6,10 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   Column,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { TicketEntity } from './ticket.entity';
 
 @Entity('payments', { schema: 'core' })
 export class PaymentEntity {
@@ -56,4 +60,14 @@ export class PaymentEntity {
     nullable: false,
   })
   method: boolean;
+
+  @ManyToOne(()=>UserEntity, (users)=>users.payments)
+  @JoinColumn({name:'user_id', referencedColumnName:'id'})
+  user_id: UserEntity;
+
+  @ManyToOne(()=>TicketEntity, (tickets)=>tickets.payments)
+  @JoinColumn({name:'ticket_id', referencedColumnName:'id'})
+  ticket_id: TicketEntity;
+
+  
 }
