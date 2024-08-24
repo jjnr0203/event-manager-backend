@@ -1,26 +1,24 @@
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { RoleEntity } from './role.entity';
 
-@Entity('users', { schema: 'auth' })
-export class UserEntity {
-  [x: string]: any;
+@Entity('information_users', { schema: 'auth' })
+export class InformationUserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
-    comment: 'Fecha de creación',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha de creacion del archivo',
   })
   createdAt: Date;
 
@@ -28,36 +26,34 @@ export class UserEntity {
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,
-    comment: 'Registro de borrado',
+    comment: 'Fecha de eliminacion del archivo',
   })
   deletedAt: Date;
 
   @Column({
-    name: 'user_name',
+    name: 'name',
     type: 'varchar',
     nullable: false,
   })
-  userName: string;
+  name: string;
+
+  photo
 
   @Column({
-    name: 'email',
+    name: 'lastname',
     type: 'varchar',
     nullable: false,
   })
-  email: string;
+  lastname: string;
 
   @Column({
-    name: 'password',
+    name: 'phone',
     type: 'varchar',
     nullable: false,
   })
-  password: string;
+  phone: string;
 
-  @ManyToMany(() => RoleEntity)
-  @JoinTable({
-    name: 'user_roles',
-    joinColumn: { name: 'user_id' },
-    inverseJoinColumn: { name: 'role_id' },
-  })
-  roles: RoleEntity[];
+  @ManyToOne(() => UserEntity, (users)=> users.id)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'information_organizator_user_id_foreign_key'})
+  user_id: UserEntity;
 }

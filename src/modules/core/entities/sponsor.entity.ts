@@ -3,8 +3,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { EventEntity } from './event.entity';
 
 @Entity('sponsors', { schema: 'core' })
 export class SponsorEntity {
@@ -40,4 +43,10 @@ export class SponsorEntity {
   })
   contact: string;
 
+  @ManyToOne(() => EventEntity, (event) => event.id)
+  @JoinColumn({
+    name: 'event_id',
+    foreignKeyConstraintName: 'sponsor_event_id',
+  })
+  event: EventEntity;
 }

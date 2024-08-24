@@ -46,7 +46,10 @@ export class CollaboratorEntity {
   })
   access_level: string;
 
-  @ManyToOne(() => RegistrationEntity, (registrations)=> registrations.id)
-  @JoinColumn({ name: 'registration_id', referencedColumnName: 'id', foreignKeyConstraintName: 'collaborator_registration_id_foreign_key'})
-  resgistration_id: RegistrationEntity;
+  @ManyToOne(() => RegistrationEntity, (registrations) => registrations.id)
+  @JoinColumn({
+    name: 'registration_id',
+    foreignKeyConstraintName: 'collaborator_registration_id',
+  })
+  registration_id: RegistrationEntity;
 }

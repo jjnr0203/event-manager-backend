@@ -1,9 +1,13 @@
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { NotificationEntity } from './notification.entity';
 
 @Entity('users_notifications', { schema: 'core' })
 export class UserNotificationEntity {
@@ -26,6 +30,17 @@ export class UserNotificationEntity {
   })
   deletedAt: Date;
 
-//   user and notification relatinship
+  @ManyToOne(() => UserEntity, (user) => user.id)
+  @JoinColumn({
+    name: 'user_id',
+    foreignKeyConstraintName: 'notification_user_id',
+  })
+  user: UserEntity;
+
+  @ManyToOne(() => NotificationEntity, (notification) => notification.id)
+  @JoinColumn({
+    name: 'notification_id',
+    foreignKeyConstraintName: 'user_notification_id',
+  })
+  notification: NotificationEntity;
 }
-    

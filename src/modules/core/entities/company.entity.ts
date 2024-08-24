@@ -9,8 +9,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('informations_organizators', { schema: 'core' })
-export class InformationOrganizator {
+@Entity('companies', { schema: 'core' })
+export class CompanyEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -36,13 +36,6 @@ export class InformationOrganizator {
     nullable: false,
   })
   name: string;
-
-  @Column({
-    name: 'logo',
-    type: 'varchar',
-    nullable: false,
-  })
-  logo: string;
 
   @Column({
     name: 'email',
