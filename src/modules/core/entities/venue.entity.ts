@@ -60,7 +60,7 @@ export class VenueEntity {
   })
   isLimited: string;
 
-  @OneToMany(()=>LocationEntity, (locations)=>locations.venues)
+  @OneToMany(()=>LocationEntity, (locations)=>locations.id)
   locations: LocationEntity[];
 
   @OneToOne(()=>AddressEntity)

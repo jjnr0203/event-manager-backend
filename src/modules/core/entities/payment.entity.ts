@@ -65,7 +65,7 @@ export class PaymentEntity {
   @JoinColumn({name:'user_id', referencedColumnName:'id'})
   user_id: UserEntity;
 
-  @ManyToOne(()=>TicketEntity, (tickets)=>tickets.payments)
+  @ManyToOne(()=>TicketEntity, (tickets)=>tickets.id)
   @JoinColumn({name:'ticket_id', referencedColumnName:'id'})
   ticket_id: TicketEntity;
 

@@ -1,8 +1,11 @@
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -75,4 +78,8 @@ export class InformationOrganizator {
     nullable: false,
   })
   socialMedia: string;
+
+  @ManyToOne(() => UserEntity, (users)=> users.id)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'information_organizator_user_id_foreign_key'})
+  user_id: UserEntity;
 }

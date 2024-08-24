@@ -3,9 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { RegistrationEntity } from './registration.entity';
 
 @Entity('collaborators', { schema: 'core' })
 export class CollaboratorEntity {
@@ -42,4 +45,8 @@ export class CollaboratorEntity {
     nullable: false,
   })
   access_level: string;
+
+  @ManyToOne(() => RegistrationEntity, (registrations)=> registrations.id)
+  @JoinColumn({ name: 'registration_id', referencedColumnName: 'id', foreignKeyConstraintName: 'collaborator_registration_id_foreign_key'})
+  resgistration_id: RegistrationEntity;
 }

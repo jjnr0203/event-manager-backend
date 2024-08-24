@@ -9,6 +9,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { VenueEntity } from './venue.entity';
+import { TicketEntity } from './ticket.entity';
 
 @Entity('locations', { schema: 'core' })
 export class LocationEntity{
@@ -44,5 +46,12 @@ export class LocationEntity{
     nullable: false,
   })
   disponibility: number;
-  venues: any;
+  
+
+  @ManyToOne(() => VenueEntity, (venues) => venues.locations)
+  @JoinColumn({ name: 'venue_id', referencedColumnName: 'id', foreignKeyConstraintName: 'location_venue_id_foreign_key'})
+  venue_id: VenueEntity;
+
+  @OneToMany(()=>TicketEntity, (tickets) => tickets.id)
+  tickets:TicketEntity[]
 }

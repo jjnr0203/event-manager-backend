@@ -4,8 +4,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { EventEntity } from './event.entity';
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
+import { CollaboratorEntity } from './collaborator.entity';
 
 @Entity('registrations', { schema: 'core' })
 export class RegistrationEntity {
@@ -40,4 +46,16 @@ export class RegistrationEntity {
     nullable: false,
   })
   attended: string;
+
+  @ManyToOne(() => EventEntity, (events)=> events.registrations)
+  @JoinColumn({ name: 'event_id', referencedColumnName: 'id', foreignKeyConstraintName: 'registration_event_id_foreign_key'})
+  event_id: EventEntity;
+
+  @ManyToOne(() => UserEntity, (users)=> users.registrations)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'registration_user_id_foreign_key'})
+  user_id: UserEntity;
+
+  @OneToMany(()=>CollaboratorEntity, (collaborator) => collaborator.id)
+  collaborators:CollaboratorEntity[];
+
 }

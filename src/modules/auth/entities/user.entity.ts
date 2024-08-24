@@ -8,6 +8,7 @@ import {
 
 @Entity('users', { schema: 'auth' })
 export class UserEntity {
+  [x: string]: any;
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -68,6 +69,4 @@ export class UserEntity {
     nullable: false,
   })
   identification: number;
-  feedbacks: any;
-  payments: any;
 }

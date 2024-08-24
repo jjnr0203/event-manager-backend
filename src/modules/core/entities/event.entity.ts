@@ -3,8 +3,18 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CatalogueEntity } from './catalogue.entity';
+import { SponsorEntity } from './sponsor.entity';
+import { FeedbackEntity } from './feedback.entity';
+import { FileEntity } from './file.entity';
+import { RegistrationEntity } from './registration.entity';
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
 
 @Entity('events', { schema: 'core' })
 export class EventEntity {
@@ -61,4 +71,26 @@ export class EventEntity {
   })
   state: string;
   feedbacks: any;
+
+  @ManyToOne(() => CatalogueEntity, (catalogues) => catalogues.id)
+  @JoinColumn({ name: 'catalogue_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_catalogue_id_foreign_key'})
+  catalogue_id: CatalogueEntity;
+
+  @ManyToOne(() => UserEntity, (users)=> users.id)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
+  user_id: UserEntity;
+
+  @OneToMany(()=>SponsorEntity, (sponsors) => sponsors.id)
+  sponsors:SponsorEntity[]
+
+  @OneToMany(()=>FileEntity, (files) => files.id)
+  files:FileEntity[]
+
+  @OneToMany(()=>RegistrationEntity, (registrations) => registrations.id)
+  registrations:RegistrationEntity[]
+
+  @OneToMany(()=>FeedbackEntity, (feedbacks) => feedbacks.id)
+  feedback:FeedbackEntity[]
+
+
 }

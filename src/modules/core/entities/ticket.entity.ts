@@ -47,5 +47,5 @@ export class TicketEntity {
     nullable: true,
   })
   type: string;
-  payments: any;
+  
 }
