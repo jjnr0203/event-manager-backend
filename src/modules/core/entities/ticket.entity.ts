@@ -7,7 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { LocationEntity } from './location.entity';
+import { SectionEntity } from './section.entity';
 
 @Entity('tickets', { schema: 'core' })
 export class TicketEntity {
@@ -44,11 +44,11 @@ export class TicketEntity {
   })
   purchaseDate: Date;
 
-  @ManyToOne(() => LocationEntity, (location) => location.id)
+  @ManyToOne(() => SectionEntity, (location) => location.id)
   @JoinColumn({
     name: 'location_id',
     foreignKeyConstraintName: 'sponsor_location_id',
   })
-  event: LocationEntity;
+  event: SectionEntity;
   
 }

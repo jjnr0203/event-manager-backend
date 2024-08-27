@@ -12,8 +12,8 @@ import {
 import { VenueEntity } from './venue.entity';
 import { TicketEntity } from './ticket.entity';
 
-@Entity('locations', { schema: 'core' })
-export class LocationEntity{
+@Entity('sections', { schema: 'core' })
+export class SectionEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

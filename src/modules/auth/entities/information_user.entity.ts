@@ -64,4 +64,4 @@ export class InformationUserEntity {
   @OneToOne(() => FileEntity)
   @JoinColumn({ name: ' file_id' })
   file: FileEntity;
-}
+} 

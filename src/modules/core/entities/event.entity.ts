@@ -72,18 +72,17 @@ export class EventEntity {
     nullable: false,
   })
   state: string;
-  feedbacks: any;
 
-  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
-  @JoinColumn({ name: 'catalogue_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_catalogue_id_foreign_key'})
-  catalogue: CatalogueEntity;
+  @ManyToOne(() => CatalogueEntity, (category) => category.id)
+  @JoinColumn({ name: 'category_id', foreignKeyConstraintName: 'event_catalogue_id_foreign_key'})
+  category: CatalogueEntity;
 
   @ManyToOne(() => UserEntity, (user)=> user.id)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
+  @JoinColumn({ name: 'user_id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
   user: UserEntity;
 
   @ManyToOne(() => VenueEntity, (venue)=> venue.id)
-  @JoinColumn({ name: 'venue_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_venue_id_foreign_key'})
+  @JoinColumn({ name: 'venue_id', foreignKeyConstraintName: 'event_venue_id_foreign_key'})
   venue: VenueEntity;
 
   @OneToMany(()=>SponsorEntity, (sponsor) => sponsor.id)
