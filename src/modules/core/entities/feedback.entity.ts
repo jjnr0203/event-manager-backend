@@ -39,11 +39,11 @@ export class FeedbackEntity {
   @Column({ type: Date, name: 'feedback_date', nullable: false })
   feedback_date: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.feedbacks)
+  @ManyToOne(() => UserEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-  user_id: UserEntity;
+  user: UserEntity;
 
-  @ManyToOne(() => EventEntity, (event) => event.feedbacks)
+  @ManyToOne(() => EventEntity, (event) => event.id)
   @JoinColumn({ name: 'event_id', referencedColumnName: 'id' })
-  event_id: UserEntity;
+  event: UserEntity;
 }

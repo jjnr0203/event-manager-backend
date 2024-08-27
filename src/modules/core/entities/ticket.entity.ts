@@ -44,13 +44,6 @@ export class TicketEntity {
   })
   purchaseDate: Date;
 
-  @Column({
-    type: 'varchar',
-    name: 'type',
-    nullable: true,
-  })
-  type: string;
-
   @ManyToOne(() => LocationEntity, (location) => location.id)
   @JoinColumn({
     name: 'location_id',

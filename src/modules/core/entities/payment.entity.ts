@@ -61,13 +61,13 @@ export class PaymentEntity {
   })
   method: boolean;
 
-  @ManyToOne(()=>UserEntity, (users)=>users.payments)
+  @ManyToOne(()=>UserEntity, (user)=>user.id)
   @JoinColumn({name:'user_id', referencedColumnName:'id'})
-  user_id: UserEntity;
+  user: UserEntity;
 
-  @ManyToOne(()=>TicketEntity, (tickets)=>tickets.id)
+  @ManyToOne(()=>TicketEntity, (ticket)=>ticket.id)
   @JoinColumn({name:'ticket_id', referencedColumnName:'id'})
-  ticket_id: TicketEntity;
+  ticket: TicketEntity;
 
   
 }

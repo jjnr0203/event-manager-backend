@@ -1,4 +1,5 @@
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
+import { FileEntity } from 'src/modules/core/entities/file.entity';
 import {
   Column,
   CreateDateColumn,
@@ -6,6 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -37,8 +39,6 @@ export class InformationUserEntity {
   })
   name: string;
 
-  photo
-
   @Column({
     name: 'lastname',
     type: 'varchar',
@@ -53,7 +53,15 @@ export class InformationUserEntity {
   })
   phone: string;
 
-  @ManyToOne(() => UserEntity, (users)=> users.id)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'information_organizator_user_id_foreign_key'})
-  user_id: UserEntity;
+  @ManyToOne(() => UserEntity, (users) => users.id)
+  @JoinColumn({
+    name: 'user_id',
+    referencedColumnName: 'id',
+    foreignKeyConstraintName: 'information_organizator_user_id_foreign_key',
+  })
+  user: UserEntity;
+
+  @OneToOne(() => FileEntity)
+  @JoinColumn({ name: ' file_id' })
+  file: FileEntity;
 }

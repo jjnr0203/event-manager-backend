@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { RegistrationEntity } from './registration.entity';
+import { EventEntity } from './event.entity';
 
 @Entity('collaborators', { schema: 'core' })
 export class CollaboratorEntity {
@@ -46,10 +47,10 @@ export class CollaboratorEntity {
   })
   access_level: string;
 
-  @ManyToOne(() => RegistrationEntity, (registrations) => registrations.id)
+  @ManyToOne(() => EventEntity, (event) => event.id)
   @JoinColumn({
-    name: 'registration_id',
-    foreignKeyConstraintName: 'collaborator_registration_id',
+    name: 'event_id',
+    foreignKeyConstraintName: 'collaborator_event_id',
   })
-  registration_id: RegistrationEntity;
+  event: EventEntity;
 }

@@ -4,6 +4,7 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -15,6 +16,7 @@ import { FeedbackEntity } from './feedback.entity';
 import { FileEntity } from './file.entity';
 import { RegistrationEntity } from './registration.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
+import { VenueEntity } from './venue.entity';
 
 @Entity('events', { schema: 'core' })
 export class EventEntity {
@@ -72,25 +74,28 @@ export class EventEntity {
   state: string;
   feedbacks: any;
 
-  @ManyToOne(() => CatalogueEntity, (catalogues) => catalogues.id)
+  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
   @JoinColumn({ name: 'catalogue_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_catalogue_id_foreign_key'})
-  catalogue_id: CatalogueEntity;
+  catalogue: CatalogueEntity;
 
-  @ManyToOne(() => UserEntity, (users)=> users.id)
+  @ManyToOne(() => UserEntity, (user)=> user.id)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
-  user_id: UserEntity;
+  user: UserEntity;
 
-  @OneToMany(()=>SponsorEntity, (sponsors) => sponsors.id)
+  @ManyToOne(() => VenueEntity, (venue)=> venue.id)
+  @JoinColumn({ name: 'venue_id', referencedColumnName: 'id', foreignKeyConstraintName: 'event_venue_id_foreign_key'})
+  venue: VenueEntity;
+
+  @OneToMany(()=>SponsorEntity, (sponsor) => sponsor.id)
   sponsors:SponsorEntity[]
 
-  @OneToMany(()=>FileEntity, (files) => files.id)
+  @OneToMany(()=>FileEntity, (file) => file.id)
   files:FileEntity[]
 
-  @OneToMany(()=>RegistrationEntity, (registrations) => registrations.id)
+  @OneToMany(()=>RegistrationEntity, (registration) => registration.id)
   registrations:RegistrationEntity[]
 
-  @OneToMany(()=>FeedbackEntity, (feedbacks) => feedbacks.id)
+  @OneToMany(()=>FeedbackEntity, (feedback) => feedback.id)
   feedback:FeedbackEntity[]
-
 
 }

@@ -47,13 +47,13 @@ export class RegistrationEntity {
   })
   attended: string;
 
-  @ManyToOne(() => EventEntity, (events)=> events.registrations)
-  @JoinColumn({ name: 'event_id', referencedColumnName: 'id', foreignKeyConstraintName: 'registration_event_id_foreign_key'})
-  event_id: EventEntity;
+  @ManyToOne(() => EventEntity, (event)=> event.id)
+  @JoinColumn({ name: 'event_id', foreignKeyConstraintName: 'registration_event_id_foreign_key'})
+  event: EventEntity;
 
-  @ManyToOne(() => UserEntity, (users)=> users.registrations)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id', foreignKeyConstraintName: 'registration_user_id_foreign_key'})
-  user_id: UserEntity;
+  @ManyToOne(() => UserEntity, (user)=> user.id)
+  @JoinColumn({ name: 'user_id', foreignKeyConstraintName: 'registration_user_id_foreign_key'})
+  user: UserEntity;
 
   @OneToMany(()=>CollaboratorEntity, (collaborator) => collaborator.id)
   collaborators:CollaboratorEntity[];

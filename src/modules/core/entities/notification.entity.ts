@@ -3,8 +3,10 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { UserNotificationEntity } from './user_notification.entity';
 
 @Entity('notifications', { schema: 'core' })
 export class NotificationEntity {
@@ -40,4 +42,7 @@ export class NotificationEntity {
     nullable: false,
   })
   message: string;
+
+  @OneToMany(()=>UserNotificationEntity,(userNotification)=>userNotification.id)
+  userNotification: UserNotificationEntity[];
 }

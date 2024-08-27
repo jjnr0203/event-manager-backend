@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { LocationEntity } from './location.entity';
 import { AddressEntity } from './address.entity';
+import { EventEntity } from './event.entity';
 
 @Entity('venues', { schema: 'core' })
 export class VenueEntity {
@@ -60,10 +61,13 @@ export class VenueEntity {
   })
   isLimited: string;
 
-  @OneToMany(()=>LocationEntity, (locations)=>locations.id)
+  @OneToMany(()=>LocationEntity, (location)=>location.id)
   locations: LocationEntity[];
 
+  @OneToMany(()=>EventEntity, (event)=>event.id)
+  events: EventEntity[];
+
   @OneToOne(()=>AddressEntity)
-  @JoinColumn({name:'address_id', referencedColumnName:'id'})
+  @JoinColumn({name:'address_id'})
   addresses:AddressEntity
 }

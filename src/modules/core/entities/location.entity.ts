@@ -48,10 +48,10 @@ export class LocationEntity{
   disponibility: number;
   
 
-  @ManyToOne(() => VenueEntity, (venues) => venues.locations)
-  @JoinColumn({ name: 'venue_id', referencedColumnName: 'id', foreignKeyConstraintName: 'location_venue_id_foreign_key'})
-  venue_id: VenueEntity;
+  @ManyToOne(() => VenueEntity, (venue) => venue.locations)
+  @JoinColumn({ name: 'venue_id', foreignKeyConstraintName: 'location_venue_id_foreign_key'})
+  venue: VenueEntity;
 
-  @OneToMany(()=>TicketEntity, (tickets) => tickets.id)
+  @OneToMany(()=>TicketEntity, (ticket) => ticket.id)
   tickets:TicketEntity[]
 }

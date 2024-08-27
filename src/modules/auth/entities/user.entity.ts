@@ -12,7 +12,6 @@ import { RoleEntity } from './role.entity';
 
 @Entity('users', { schema: 'auth' })
 export class UserEntity {
-  [x: string]: any;
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
