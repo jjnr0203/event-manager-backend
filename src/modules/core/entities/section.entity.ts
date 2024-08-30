@@ -34,6 +34,13 @@ export class SectionEntity{
   deletedAt: Date;
 
   @Column({
+    name: 'name',
+    type: 'varchar',
+    nullable: false,
+  })
+  name: string;
+
+  @Column({
     name: 'capacity',
     type: 'integer',
     nullable: false,
@@ -45,10 +52,9 @@ export class SectionEntity{
     type: 'boolean',
     nullable: false,
   })
-  disponibility: number;
+  disponibility: boolean;
   
-
-  @ManyToOne(() => VenueEntity, (venue) => venue.locations)
+  @ManyToOne(() => VenueEntity, (venue) => venue.id)
   @JoinColumn({ name: 'venue_id', foreignKeyConstraintName: 'location_venue_id_foreign_key'})
   venue: VenueEntity;
 

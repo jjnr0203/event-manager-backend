@@ -41,16 +41,8 @@ export class VenueEntity {
   name: string;
 
   @Column({
-    name: 'address',
-    type: 'varchar',
-    nullable: false,
-  })
-  address: string;
-
-  @Column({
     name: 'capacity',
     type: 'int',
-    nullable: false,
   })
   capacity: number;
 
@@ -59,15 +51,15 @@ export class VenueEntity {
     type: Boolean,
     nullable: false,
   })
-  isLimited: string;
+  isLimited: boolean;
 
-  @OneToMany(()=>SectionEntity, (location)=>location.id)
-  locations: SectionEntity[];
+  @OneToMany(()=>SectionEntity, (section)=>section.id)
+  sections: SectionEntity[];
 
   @OneToMany(()=>EventEntity, (event)=>event.id)
   events: EventEntity[];
 
   @OneToOne(()=>AddressEntity)
   @JoinColumn({name:'address_id'})
-  addresses:AddressEntity
+  address:AddressEntity
 }

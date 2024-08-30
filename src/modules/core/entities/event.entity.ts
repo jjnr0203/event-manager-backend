@@ -73,13 +73,20 @@ export class EventEntity {
   })
   state: string;
 
+  @Column({
+    type: 'boolean',
+    name: 'is_public',
+    nullable: false,
+  })
+  isPublic: boolean;
+
   @ManyToOne(() => CatalogueEntity, (category) => category.id)
   @JoinColumn({ name: 'category_id', foreignKeyConstraintName: 'event_catalogue_id_foreign_key'})
   category: CatalogueEntity;
 
   @ManyToOne(() => UserEntity, (user)=> user.id)
-  @JoinColumn({ name: 'user_id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
-  user: UserEntity;
+  @JoinColumn({ name: 'organizer_id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
+  organizer: UserEntity;
 
   @ManyToOne(() => VenueEntity, (venue)=> venue.id)
   @JoinColumn({ name: 'venue_id', foreignKeyConstraintName: 'event_venue_id_foreign_key'})
