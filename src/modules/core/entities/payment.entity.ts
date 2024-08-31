@@ -8,8 +8,11 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { TicketEntity } from './ticket.entity';
+import { TicketTypeEntity } from './ticket-type.entity';
+import { TransactionEntity } from './transaction.entity';
 
 @Entity('payments', { schema: 'core' })
 export class PaymentEntity {
@@ -41,33 +44,47 @@ export class PaymentEntity {
   deletedAt: Date;
 
   @Column({
-    type: 'boolean',
-    name: 'status',
-    nullable: false,
-  })
-  status: boolean;
-
-  @Column({
+    name: 'amount',
     type: 'timestamp',
-    name: 'transaction_date',
     nullable: false,
   })
-  transaction_date: Date;
+  amount: Date;
+  
+  @Column({
+    name: 'state',
+    type: 'varchar',
+    nullable: false,
+  })
+  state: Date;
 
   @Column({
-    type: 'boolean',
-    name: 'method',
+    name: 'purchase_date',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
     nullable: false,
   })
-  method: boolean;
+  purchaseDate: Date;
+
+  @Column({
+    name: 'cuantity',
+    type: 'int',
+    nullable: false,
+  })
+  cuantity: Date;
+
+  @OneToOne(()=>PaymentEntity, (payment)=>payment.id)
+  paymentMethod: PaymentEntity;
 
   @ManyToOne(()=>UserEntity, (user)=>user.id)
   @JoinColumn({name:'user_id', referencedColumnName:'id'})
   user: UserEntity;
 
-  @ManyToOne(()=>TicketEntity, (ticket)=>ticket.id)
-  @JoinColumn({name:'ticket_id', referencedColumnName:'id'})
-  ticket: TicketEntity;
+  @ManyToOne(()=>TicketTypeEntity, (ticket)=>ticket.id)
+  @JoinColumn({name:'ticket_type_id'})
+  ticketType: TicketTypeEntity;
 
+  @ManyToOne(()=>TransactionEntity, (transaction)=>transaction.id)
+  @JoinColumn({name:'payment_transaction_id'})
+  transaction: TransactionEntity;
   
 }

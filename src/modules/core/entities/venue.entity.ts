@@ -8,7 +8,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SectionEntity } from './section.entity';
 import { AddressEntity } from './address.entity';
 import { EventEntity } from './event.entity';
 
@@ -52,9 +51,6 @@ export class VenueEntity {
     nullable: false,
   })
   isLimited: boolean;
-
-  @OneToMany(()=>SectionEntity, (section)=>section.id)
-  sections: SectionEntity[];
 
   @OneToMany(()=>EventEntity, (event)=>event.id)
   events: EventEntity[];

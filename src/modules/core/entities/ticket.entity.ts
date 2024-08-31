@@ -7,8 +7,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SectionEntity } from './section.entity';
+import { TicketTypeEntity } from './ticket-type.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
+import { EventEntity } from './event.entity';
 
 @Entity('tickets', { schema: 'core' })
 export class TicketEntity {
@@ -31,25 +32,44 @@ export class TicketEntity {
   createdAt: Date;
 
   @Column({
-    type: 'decimal',
-    name: 'price',
-    nullable: true,
-  })
-  price: number;
-
-  @Column({
-    name: 'purchase_date',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
+    name: 'code',
+    type: 'varchar',
     nullable: false,
   })
-  purchaseDate: Date;
+  code: string;
 
-  @ManyToOne(() => SectionEntity, (section) => section.id)
-  @JoinColumn({
-    name: 'section_id',
-    foreignKeyConstraintName: 'sponsor_location_id',
+  @Column({
+    name: 'state',
+    type: 'boolean',
+    nullable: false,
   })
-  section: SectionEntity;
+  state: boolean;
+
+  @Column({
+    name: 'generated_date',
+    type: 'timestamp',
+    nullable: false,
+  })
+  generatedDate: Date;
+
+  @ManyToOne(() => TicketTypeEntity, (type) => type.id)
+  @JoinColumn({
+    name: 'ticket_type_id',
+    foreignKeyConstraintName: 'ticket_ticket_type_id_fkey',
+  })
+  ticketType: TicketTypeEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.id)
+  @JoinColumn({
+    name: 'user_id',
+    foreignKeyConstraintName: 'ticket_user_id_fkey',
+  })
+  user: UserEntity;
   
+  @ManyToOne(()=>EventEntity, (event)=> event.id)
+  @JoinColumn({
+    name: 'event_id',
+    foreignKeyConstraintName: 'ticket_event_id_fkey',
+  })
+  event: EventEntity;
 }

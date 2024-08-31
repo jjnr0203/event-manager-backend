@@ -5,15 +5,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-import { VenueEntity } from './venue.entity';
-import { TicketEntity } from './ticket.entity';
 
-@Entity('sections', { schema: 'core' })
-export class SectionEntity{
+import { EventEntity } from './event.entity';
+
+@Entity('ticket_type', { schema: 'core' })
+export class TicketTypeEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -45,19 +43,22 @@ export class SectionEntity{
     type: 'integer',
     nullable: false,
   })
-  capacity: number;
+  disponibility: number;
 
   @Column({
-    name: 'disponibility',
-    type: 'boolean',
+    name: 'price',
+    type: 'decimal',
     nullable: false,
   })
-  disponibility: boolean;
-  
-  @ManyToOne(() => VenueEntity, (venue) => venue.id)
-  @JoinColumn({ name: 'venue_id', foreignKeyConstraintName: 'location_venue_id_foreign_key'})
-  venue: VenueEntity;
+  price: number;
 
-  @OneToMany(()=>TicketEntity, (ticket) => ticket.id)
-  tickets:TicketEntity[]
+  @Column({
+    name: 'is_available',
+    type: 'boolean',
+  })
+  isAvailable: boolean;
+  
+  @ManyToOne(() => EventEntity, (event) => event.id)
+  @JoinColumn({name: 'event_id'})
+  event:EventEntity;
 }

@@ -7,6 +7,7 @@ import {
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { RoleEntity } from './role.entity';
 
@@ -31,12 +32,12 @@ export class UserEntity {
   })
   deletedAt: Date;
 
-  @Column({
-    name: 'user_name',
-    type: 'varchar',
-    nullable: false,
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
   })
-  userName: string;
+  updatedAt: Date;
 
   @Column({
     name: 'email',
