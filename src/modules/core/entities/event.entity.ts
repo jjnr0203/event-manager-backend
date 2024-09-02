@@ -27,7 +27,6 @@ export class EventEntity {
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: true,
   })
   createdAt: Date;
 

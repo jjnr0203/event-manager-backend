@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import { UserNotificationEntity } from './user_notification.entity';
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
 
 @Entity('notifications', { schema: 'core' })
 export class NotificationEntity {
@@ -17,17 +19,23 @@ export class NotificationEntity {
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
-    comment: 'Fecha de creacion del archivo',
   })
   createdAt: Date;
-
+  
   @DeleteDateColumn({
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,
-    comment: 'Fecha de eliminacion del archivo',
+    default: () => 'CURRENT_TIMESTAMP',
   })
   deletedAt: Date;
+
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @Column({
     name: 'title',
@@ -43,6 +51,10 @@ export class NotificationEntity {
   })
   message: string;
 
-  @OneToMany(()=>UserNotificationEntity,(userNotification)=>userNotification.id)
-  userNotification: UserNotificationEntity[];
+  @ManyToMany(()=> UserEntity,  user => user.id)
+  @JoinTable({
+    joinColumn:{name:'notification_id'},
+    inverseJoinColumn:{name:'user_id'},
+  })
+  users: UserEntity[];
 }

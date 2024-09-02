@@ -5,11 +5,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { RegistrationEntity } from './registration.entity';
 import { EventEntity } from './event.entity';
+import { UserEntity } from 'src/modules/auth/entities/user.entity';
+import { CatalogueEntity } from './catalogue.entity';
 
 @Entity('collaborators', { schema: 'core' })
 export class CollaboratorEntity {
@@ -40,12 +43,8 @@ export class CollaboratorEntity {
   })
   deletedAt: Date;
 
-  @Column({
-    type: 'varchar',
-    name: 'access_level',
-    nullable: false,
-  })
-  access_level: string;
+  @OneToMany(() => CatalogueEntity, (access_level) => access_level.id)
+  access_level: CatalogueEntity;
 
   @ManyToOne(() => EventEntity, (event) => event.id)
   @JoinColumn({
@@ -53,4 +52,11 @@ export class CollaboratorEntity {
     foreignKeyConstraintName: 'collaborator_event_id',
   })
   event: EventEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.id)
+  @JoinColumn({
+    name: 'user_id',
+    foreignKeyConstraintName: 'collaborator_user_id',
+  })
+  user: UserEntity;
 }
