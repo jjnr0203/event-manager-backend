@@ -1,12 +1,4 @@
-import { IsString } from "class-validator";
+import { PartialType } from "@nestjs/mapped-types";
+import { CreateAddresDto } from "./create-address.dto";
 
-export class UpdateAddresDto {
-    @IsString()
-    latitude: string;
-
-    @IsString()
-    altitude: string;
-
-    @IsString()
-    reference: string;
-}
+export class UpdateAddresDto extends PartialType(CreateAddresDto){}

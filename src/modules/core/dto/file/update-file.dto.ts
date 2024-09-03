@@ -1,28 +1,4 @@
-import { IsString, IsNumber } from "class-validator";
+import { PartialType } from "@nestjs/mapped-types";
+import { CreateFileDto } from "./create-file.dto";
 
-export class UpdateFileDto{
-    @IsString()
-    name:string;
-
-    @IsString()
-    url: string;
-
-    @IsString()
-    publicId: string;
-
-    @IsString()
-    resourceType: string;
-
-    @IsString()
-    format: string;
-
-    @IsNumber()
-    size: number;
-    
-    @IsNumber()
-    width: number;
-
-    @IsNumber()
-    height: number;
-
-}
+export class UpdateFileDto extends PartialType(CreateFileDto){}

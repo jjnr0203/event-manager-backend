@@ -12,4 +12,6 @@ export class CreateVenueDto{
     @IsNotEmpty()
     @IsBoolean()
     isLimited: boolean;
+
+    events: string[]
 }

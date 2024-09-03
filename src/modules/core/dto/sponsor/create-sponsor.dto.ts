@@ -9,4 +9,6 @@ export class CreateSponsorDto{
     @IsString()
     @IsNotEmpty()
     contact: string;
+
+    event: string;
 }

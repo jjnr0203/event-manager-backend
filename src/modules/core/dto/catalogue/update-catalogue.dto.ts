@@ -1,12 +1,4 @@
-import { IsString, IsNumber } from "class-validator";
+import { PartialType } from "@nestjs/mapped-types";
+import { CreateCatalogueDto } from "./create-catalogue.dto";
 
-export class UpdateCatalogueDto {
-    @IsString()
-    name: string;
-
-    @IsString()
-    type: string;
-
-    @IsNumber()
-    code: number;
-}
+export class UpdateCatalogueDto extends PartialType(CreateCatalogueDto) {}

@@ -1,12 +1,4 @@
-import { IsString, IsNumber, IsBoolean } from "class-validator";
+import { PartialType } from "@nestjs/mapped-types";
+import { CreateVenueDto } from "./create-venue.dto";
 
-export class UpdateVenueDto{
-    @IsString()
-    name: string;
-
-    @IsNumber()
-    capacity: number;
-
-    @IsBoolean()
-    isLimited: boolean;
-}
+export class UpdateVenueDto extends PartialType(CreateVenueDto){}

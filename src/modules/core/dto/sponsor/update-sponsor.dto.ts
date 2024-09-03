@@ -1,9 +1,4 @@
-import { IsString } from "class-validator";
+import { PartialType } from "@nestjs/mapped-types";
+import { CreateSponsorDto } from "./create-sponsor.dto";
 
-export class UpdateSponsorDto{
-    @IsString()
-    email:string;
-
-    @IsString()
-    contact: string;
-}
+export class UpdateSponsorDto extends PartialType(CreateSponsorDto) {}
