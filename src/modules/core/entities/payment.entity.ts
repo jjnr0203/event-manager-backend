@@ -55,7 +55,7 @@ export class PaymentEntity {
     type: 'varchar',
     nullable: false,
   })
-  state: Date;
+  state: string;
 
   @Column({
     name: 'purchase_date',

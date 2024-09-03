@@ -38,14 +38,14 @@ export class RegistrationEntity {
     name: 'registed_at',
     nullable: false,
   })
-  registeredAt: string;
+  registeredAt: Date;
 
   @Column({
     type: Boolean,
     name: 'attended',
     nullable: false,
   })
-  attended: string;
+  attended: boolean;
 
   @ManyToOne(() => EventEntity, (event)=> event.id)
   @JoinColumn({ name: 'event_id', foreignKeyConstraintName: 'registration_event_id_foreign_key'})

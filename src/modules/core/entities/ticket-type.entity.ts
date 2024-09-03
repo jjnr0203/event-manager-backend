@@ -39,7 +39,7 @@ export class TicketTypeEntity{
   name: string;
 
   @Column({
-    name: 'capacity',
+    name: 'disponibility',
     type: 'integer',
     nullable: false,
   })
