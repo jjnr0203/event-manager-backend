@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsOptional, IsNumber } from "class-validator";
 
-export class FileDto{
+export class CreateFileDto{
     @IsNotEmpty()
     @IsString()
     name:string;

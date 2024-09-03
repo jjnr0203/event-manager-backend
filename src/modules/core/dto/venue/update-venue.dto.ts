@@ -1,6 +1,6 @@
 import { IsString, IsNumber, IsBoolean } from "class-validator";
 
-export class VenueDto{
+export class UpdateVenueDto{
     @IsString()
     name: string;
 

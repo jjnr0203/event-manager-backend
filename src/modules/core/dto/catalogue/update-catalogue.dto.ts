@@ -1,6 +1,6 @@
 import { IsString, IsNumber } from "class-validator";
 
-export class catalogueDto {
+export class UpdateCatalogueDto {
     @IsString()
     name: string;
 

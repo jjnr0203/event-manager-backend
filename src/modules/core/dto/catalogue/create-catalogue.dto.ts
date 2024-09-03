@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsOptional, IsNumber } from "class-validator";
 
-export class catalogueDto {
+export class CreateCatalogueDto {
     @IsString()
     @IsNotEmpty()
     name: string;

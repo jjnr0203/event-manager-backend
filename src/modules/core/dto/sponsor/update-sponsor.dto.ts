@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 
-export class SponsorDto{
+export class UpdateSponsorDto{
     @IsString()
     email:string;
 

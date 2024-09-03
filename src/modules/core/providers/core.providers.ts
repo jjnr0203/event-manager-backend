@@ -13,7 +13,6 @@ import { PaymentEntity } from '../entities/payment.entity';
 import { SponsorEntity } from '../entities/sponsor.entity';
 import { NotificationEntity } from '../entities/notification.entity';
 import { TicketTypeEntity } from '../entities/ticket-type.entity';
-import { UserNotificationEntity } from '../entities/user_notification.entity';
 import { TransactionEntity } from '../entities/transaction.entity';
 import { RegistrationEntity } from '../entities/registration.entity';
 import { VenueEntity } from '../entities/venue.entity';
@@ -77,12 +76,6 @@ export const coreProviders = [
     provide: CoreRepositoryEnum.TICKET_TYPE_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(TicketTypeEntity),
-    inject: [DatabaseProviderEnum.POSTGRES],
-  },
-  {
-    provide: CoreRepositoryEnum.USER_NOTIFICATION_REPOSITORY,
-    useFactory: (dataSource: DataSource) =>
-      dataSource.getRepository(UserNotificationEntity),
     inject: [DatabaseProviderEnum.POSTGRES],
   },
   {

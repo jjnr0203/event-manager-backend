@@ -1,6 +1,6 @@
 import { IsString, IsNumber } from "class-validator";
 
-export class FileDto{
+export class UpdateFileDto{
     @IsString()
     name:string;
 

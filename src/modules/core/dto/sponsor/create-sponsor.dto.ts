@@ -1,6 +1,6 @@
 import { IsString, IsEmail, IsNotEmpty } from "class-validator";
 
-export class SponsorDto{
+export class CreateSponsorDto{
     @IsString()
     @IsEmail()
     @IsNotEmpty()
