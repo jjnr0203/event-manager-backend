@@ -31,13 +31,13 @@ export class FeedbackEntity {
   createdAt: Date;
 
   @Column({ type: 'int', name: 'rating', nullable: false })
-  rating: string;
+  rating: number;
 
   @Column({ type: 'varchar', name: 'comment', nullable: false })
   comment: string;
 
-  @Column({ type: Date, name: 'feedback_date', nullable: false })
-  feedback_date: string;
+  @Column({ type: 'timestamp', name: 'feedback_date', nullable: false })
+  feedback_date: Date;
 
   @ManyToOne(() => UserEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })

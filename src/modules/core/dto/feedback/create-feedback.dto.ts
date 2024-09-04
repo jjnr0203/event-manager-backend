@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { UserEntity } from "src/modules/auth/entities/user.entity";
 import { EventEntity } from "../../entities/event.entity";
 
 export class CreateFeedbackDto {
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
-    rating: string;
+    rating: number;
 
     @IsString()
     @IsNotEmpty()
@@ -13,11 +13,11 @@ export class CreateFeedbackDto {
 
     @IsString()
     @IsNotEmpty()
-    feedback_date: string;
+    feedback_date: Date;
     
     @IsNotEmpty()
-    user : UserEntity[];
+    user : UserEntity;
     
     @IsNotEmpty()
-    event: EventEntity[];
+    event: EventEntity;
 }

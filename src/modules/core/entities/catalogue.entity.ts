@@ -14,6 +14,7 @@ export class CatalogueEntity {
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,
+    default: ()=> 'CURRENT_TIMESTAMP'
   })
   createdAt: Date;
 

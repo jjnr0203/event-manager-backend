@@ -3,17 +3,16 @@ import { EventEntity } from "../../entities/event.entity";
 import { UserEntity } from "src/modules/auth/entities/user.entity";
 
 export class CreateRegistrationDto{
-    @IsDate()
-    @IsNotEmpty()
-    deletedAt:Date;
+    
     
     @IsBoolean()
     @IsNotEmpty()
     attended:boolean;
 
     @IsString()
-    event:EventEntity[];
+    event:EventEntity;
 
-    @IsString()
-    user:UserEntity[];
+    @IsNotEmpty()
+    user:UserEntity;
+
 }

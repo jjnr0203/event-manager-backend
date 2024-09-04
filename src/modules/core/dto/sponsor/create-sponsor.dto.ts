@@ -1,4 +1,6 @@
 import { IsString, IsEmail, IsNotEmpty } from "class-validator";
+import { CreateEventDto } from "../event/create-event.dto";
+import { EventEntity } from "../../entities/event.entity";
 
 export class CreateSponsorDto{
     @IsString()
@@ -10,5 +12,5 @@ export class CreateSponsorDto{
     @IsNotEmpty()
     contact: string;
 
-    event: string;
+    event: EventEntity;
 }

@@ -55,7 +55,4 @@ export class RegistrationEntity {
   @JoinColumn({ name: 'user_id', foreignKeyConstraintName: 'registration_user_id_foreign_key'})
   user: UserEntity;
 
-  @OneToMany(()=>CollaboratorEntity, (collaborator) => collaborator.id)
-  collaborators:CollaboratorEntity[];
-
 }
