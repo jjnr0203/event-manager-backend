@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
@@ -10,13 +11,21 @@ export class CatalogueEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @DeleteDateColumn({
-    name: 'deleted_at',
+  @CreateDateColumn({
+    name: 'created_at',
     type: 'timestamp',
     nullable: true,
     default: ()=> 'CURRENT_TIMESTAMP'
   })
   createdAt: Date;
+
+  @DeleteDateColumn({
+    name: 'deleted_at',
+    type: 'timestamp',
+    nullable: true,
+    comment: 'Fecha de eliminacion del archivo',
+  })
+  deletedAt: Date;
 
   @Column({
     name: 'name',
@@ -31,12 +40,13 @@ export class CatalogueEntity {
     nullable: false,
   })
   type: string;
-
+  
   @Column({
     name: 'description',
     type: 'varchar',
+    nullable: true,
   })
-  description: string;
+  description?: string;
 
   @Column({
     name: 'code',

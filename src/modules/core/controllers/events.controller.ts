@@ -24,8 +24,8 @@ export class EventsController {
     }
 
     @Patch(':id')
-    update(@Param('id') id:string, @Body() updateEventDto: UpdateEventDto){
-        return this.eventsService.update(id, updateEventDto)
+    async update(@Param('id') id:string, @Body() updateEventDto: UpdateEventDto){
+        return await this.eventsService.update(id, updateEventDto)
     }
     
     @Delete(':id')

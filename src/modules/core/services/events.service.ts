@@ -24,16 +24,28 @@ export class EventsService {
   }
 
   async create(payload: CreateEventDto) {
-    const event = await this.repository.create(payload);
-    await this.repository.save(event);
-    return event;
+    try {
+      const event = await this.repository.create(payload);
+      await this.repository.save(event);
+      return event;
+    } catch (error) {
+      console.log(error);
+
+      return 'Error creating the event';
+    }
   }
 
   async update(id: string, payload: UpdateEventDto) {
     const event = await this.repository.preload({ id, ...payload });
     if (!event) throw new NotFoundException('Event not found');
-    await this.repository.save(event);
-    return event;
+    try {
+      await this.repository.save(event);
+      return event;
+    } catch (error) {
+      console.log(error);
+
+      return 'Error updating the event';
+    }
   }
 
   async delete(id: string) {

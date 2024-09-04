@@ -10,6 +10,7 @@ export class CreateCatalogueDto {
     type: string;
 
     @IsString()
+    @IsOptional()
     description: string;
 
     @IsOptional()
