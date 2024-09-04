@@ -9,6 +9,9 @@ export class CreateCatalogueDto {
     @IsNotEmpty()
     type: string;
 
+    @IsString()
+    description: string;
+
     @IsOptional()
     @IsNumber()
     code: number;

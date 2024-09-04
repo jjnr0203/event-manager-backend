@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber, IsBoolean } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional, IsNumber, IsBoolean, IsInt } from "class-validator";
 import { EventEntity } from "../../entities/event.entity";
 import { CreateAddresDto } from "../address/create-address.dto";
 
@@ -8,13 +8,12 @@ export class CreateVenueDto {
     name: string;
 
     @IsOptional()
-    @IsNumber()
+    @IsInt()
     capacity: number;
 
     @IsNotEmpty()
     @IsBoolean()
     isLimited: boolean;
 
-    events: EventEntity[]
     address: CreateAddresDto
 }

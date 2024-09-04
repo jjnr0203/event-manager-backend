@@ -1,9 +1,14 @@
+import { InformationUserEntity } from 'src/modules/auth/entities/information_user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToOne,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { EventEntity } from './event.entity';
 
 @Entity('files', { schema: 'core' })
 export class FileEntity {
@@ -79,4 +84,13 @@ export class FileEntity {
     comment: 'Timestamp of when the file was uploaded',
   })
   createdAt: Date;
+
+  @OneToOne(() => InformationUserEntity, infomationUser => infomationUser.id, {nullable:true})
+  profielPictureUser: InformationUserEntity;
+
+  @ManyToOne(() => EventEntity, (event) => event.id, {nullable:true, eager:true})
+  @JoinColumn({
+    name: 'files_event_id',
+  })
+  event: EventEntity;
 }

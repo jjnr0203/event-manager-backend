@@ -36,7 +36,12 @@ export class FeedbackEntity {
   @Column({ type: 'varchar', name: 'comment', nullable: false })
   comment: string;
 
-  @Column({ type: 'timestamp', name: 'feedback_date', nullable: false })
+  @Column({
+    type: 'timestamp',
+    name: 'feedback_date',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: false,
+  })
   feedback_date: Date;
 
   @ManyToOne(() => UserEntity, (user) => user.id)

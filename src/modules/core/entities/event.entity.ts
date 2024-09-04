@@ -9,6 +9,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { CatalogueEntity } from './catalogue.entity';
 import { SponsorEntity } from './sponsor.entity';
@@ -16,7 +17,7 @@ import { FeedbackEntity } from './feedback.entity';
 import { FileEntity } from './file.entity';
 import { RegistrationEntity } from './registration.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
-import { VenueEntity } from './venue.entity';
+import { AddressEntity } from './address.entity';
 
 @Entity('events', { schema: 'core' })
 export class EventEntity {
@@ -29,6 +30,13 @@ export class EventEntity {
     default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
+
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @DeleteDateColumn({
     name: 'deleted_at',
@@ -52,25 +60,25 @@ export class EventEntity {
   description: string;
 
   @Column({
-    type: Date,
+    type: 'timestamp',
     name: 'start_date',
     nullable: false,
   })
   start_date: Date;
 
   @Column({
-    type: Date,
+    type: 'timestamp',
     name: 'end_date',
     nullable: false,
   })
   end_date: Date;
 
-  @Column({
-    type: 'varchar',
-    name: 'state',
-    nullable: false,
+  @ManyToOne(()=>CatalogueEntity, catalogue=> catalogue.id)
+  @JoinColumn({
+    name:'status_id',
+    foreignKeyConstraintName:'event_status_id'
   })
-  state: string;
+  status: CatalogueEntity;
 
   @Column({
     type: 'boolean',
@@ -87,9 +95,9 @@ export class EventEntity {
   @JoinColumn({ name: 'organizer_id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
   organizer: UserEntity;
 
-  @ManyToOne(() => VenueEntity, (venue)=> venue.id)
-  @JoinColumn({ name: 'venue_id', foreignKeyConstraintName: 'event_venue_id_foreign_key'})
-  venue: VenueEntity;
+  @ManyToOne(() => AddressEntity, (address)=> address.id)
+  @JoinColumn({ name: 'address_id', foreignKeyConstraintName: 'event_address_id_foreign_key'})
+  address: AddressEntity;
 
   @OneToMany(()=>SponsorEntity, (sponsor) => sponsor.id)
   sponsors:SponsorEntity[]

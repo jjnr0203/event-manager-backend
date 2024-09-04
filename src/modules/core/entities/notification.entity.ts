@@ -54,13 +54,13 @@ export class NotificationEntity {
   @Column({
     name: 'has_been_read',
     type: 'boolean',
-    nullable: false,
     default: false
   })
   hasBeenRead: boolean;
 
   @ManyToMany(()=> UserEntity,  user => user.id, {cascade:true})
   @JoinTable({
+    name:'notification_users',
     joinColumn:{name:'notification_id'},
     inverseJoinColumn:{name:'user_id'},
   })

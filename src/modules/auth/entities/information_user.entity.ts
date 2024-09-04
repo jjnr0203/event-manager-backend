@@ -61,7 +61,7 @@ export class InformationUserEntity {
   })
   user: UserEntity;
 
-  @OneToOne(() => FileEntity)
-  @JoinColumn({ name: ' file_id' })
-  file: FileEntity;
-} 
+  @OneToOne(() => FileEntity, (file) => file.id, {eager:true})
+  @JoinColumn({ name: ' profile_picture_id' })
+  profilePicture: FileEntity;
+}

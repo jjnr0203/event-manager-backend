@@ -9,7 +9,7 @@ export class CreateRegistrationDto{
     @IsNotEmpty()
     attended:boolean;
 
-    @IsString()
+    @IsNotEmpty()
     event:EventEntity;
 
     @IsNotEmpty()

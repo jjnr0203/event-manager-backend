@@ -38,17 +38,21 @@ export class AddressEntity {
 
   @Column({
     name: 'latitude',
-    type: 'varchar',
+    type: 'decimal',
+    precision: 9,
+    scale: 6,
     nullable: false,
   })
-  latitude: string;
+  latitude: number;
 
   @Column({
     name: 'altitude',
-    type: 'varchar',
-    nullable: false,
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: false, 
   })
-  altitude: string;
+  altitude: number;
 
   @Column({
     name: 'reference',
@@ -56,4 +60,12 @@ export class AddressEntity {
     nullable: false,
   })
   reference: string;
+
+  @Column({
+    name: 'mainStreet',
+    type: 'varchar',
+    nullable: false,
+  })
+  mainStreet: string;
+
 }

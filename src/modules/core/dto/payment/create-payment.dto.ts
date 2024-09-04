@@ -1,18 +1,19 @@
-import { IsDate, IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsDate, IsInt, isNotEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { UserEntity } from "src/modules/auth/entities/user.entity";
 import { PaymentEntity } from "../../entities/payment.entity";
 import { TicketTypeEntity } from "../../entities/ticket-type.entity";
 import { TransactionEntity } from "../../entities/transaction.entity";
+import { CatalogueEntity } from "../../entities/catalogue.entity";
+import { CreateTransactionDto } from "../transaction/create-transaction.dto";
 
 export class CreatePaymentDto {
     
-    @IsDate()
+    @IsNumber()
     @IsNotEmpty()
     amount: Date;
     
-    @IsString()
     @IsNotEmpty()
-    state:string;
+    state:CatalogueEntity;
 
     @IsDate()
     @IsNotEmpty()
@@ -20,19 +21,19 @@ export class CreatePaymentDto {
     
     @IsInt()
     @IsNotEmpty()
-    cuantity:string;
+    cuantity:number;
 
-    @IsString()
+    @IsNotEmpty()
     user: UserEntity[];
 
-    @IsString()
-    paymentMethod: PaymentEntity[];
+    @IsNotEmpty()
+    paymentMethod: CatalogueEntity[];
 
-    @IsString()
+    @IsNotEmpty()
     ticketType: TicketTypeEntity[];
 
-    @IsString()
-    transaction: TransactionEntity[];
+    @IsNotEmpty()
+    transaction: CreateTransactionDto[];
 
 
 }

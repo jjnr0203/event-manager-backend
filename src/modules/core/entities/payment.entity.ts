@@ -13,6 +13,7 @@ import {
 import { TicketEntity } from './ticket.entity';
 import { TicketTypeEntity } from './ticket-type.entity';
 import { TransactionEntity } from './transaction.entity';
+import { CatalogueEntity } from './catalogue.entity';
 
 @Entity('payments', { schema: 'core' })
 export class PaymentEntity {
@@ -45,17 +46,19 @@ export class PaymentEntity {
 
   @Column({
     name: 'amount',
-    type: 'timestamp',
+    type: 'decimal',
     nullable: false,
+    precision: 10,
+    scale: 2,
   })
-  amount: Date;
-  
-  @Column({
-    name: 'state',
-    type: 'varchar',
-    nullable: false,
+  amount: number;
+
+  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
+  @JoinColumn({
+    name: 'state_id',
+    foreignKeyConstraintName: 'payments_state_id',
   })
-  state: string;
+  state: CatalogueEntity;
 
   @Column({
     name: 'purchase_date',
@@ -70,21 +73,24 @@ export class PaymentEntity {
     type: 'int',
     nullable: false,
   })
-  cuantity: Date;
+  cuantity: number;
 
-  @OneToOne(()=>PaymentEntity, (payment)=>payment.id)
-  paymentMethod: PaymentEntity;
+  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
+  @JoinColumn({
+    name: 'payment_method_id',
+    foreignKeyConstraintName: 'payments_payment_method_id',
+  })
+  paymentMethod: CatalogueEntity;
 
-  @ManyToOne(()=>UserEntity, (user)=>user.id)
-  @JoinColumn({name:'user_id', referencedColumnName:'id'})
+  @ManyToOne(() => UserEntity, (user) => user.id)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: UserEntity;
 
-  @ManyToOne(()=>TicketTypeEntity, (ticket)=>ticket.id)
-  @JoinColumn({name:'ticket_type_id'})
+  @ManyToOne(() => TicketTypeEntity, (ticketType) => ticketType.id)
+  @JoinColumn({ name: 'ticket_type_id' })
   ticketType: TicketTypeEntity;
 
-  @ManyToOne(()=>TransactionEntity, (transaction)=>transaction.id)
-  @JoinColumn({name:'payment_transaction_id'})
+  @ManyToOne(() => TransactionEntity, (transaction) => transaction.id)
+  @JoinColumn({ name: 'payment_transaction_id' })
   transaction: TransactionEntity;
-  
 }

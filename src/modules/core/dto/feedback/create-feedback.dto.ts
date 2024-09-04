@@ -10,10 +10,6 @@ export class CreateFeedbackDto {
     @IsString()
     @IsNotEmpty()
     comment: string;
-
-    @IsString()
-    @IsNotEmpty()
-    feedback_date: Date;
     
     @IsNotEmpty()
     user : UserEntity;

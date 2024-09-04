@@ -33,6 +33,12 @@ export class CatalogueEntity {
   type: string;
 
   @Column({
+    name: 'description',
+    type: 'varchar',
+  })
+  description: string;
+
+  @Column({
     name: 'code',
     type: 'int',
     nullable: false,

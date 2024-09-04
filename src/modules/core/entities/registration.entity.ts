@@ -35,7 +35,8 @@ export class RegistrationEntity {
 
   @Column({
     type: 'timestamp',
-    name: 'registed_at',
+    name: 'registreted_at',
+    default: () => 'CURRENT_TIMESTAMP',
     nullable: false,
   })
   registeredAt: Date;
@@ -44,6 +45,7 @@ export class RegistrationEntity {
     type: Boolean,
     name: 'attended',
     nullable: false,
+    default:false
   })
   attended: boolean;
 

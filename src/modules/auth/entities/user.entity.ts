@@ -42,6 +42,7 @@ export class UserEntity {
   @Column({
     name: 'email',
     type: 'varchar',
+    unique:true,
     nullable: false,
   })
   email: string;

@@ -31,17 +31,17 @@ export class SponsorEntity {
 
   @Column({
     name: 'email',
-    type: 'text',
+    type: 'varchar',
     nullable: false,
   })
   email: string;
 
   @Column({
-    name: 'contact',
+    name: 'name',
     type: 'text',
     nullable: false,
   })
-  contact: string;
+  name: string;
 
   @ManyToOne(() => EventEntity, (event) => event.id)
   @JoinColumn({

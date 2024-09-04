@@ -48,6 +48,8 @@ export class TicketTypeEntity{
   @Column({
     name: 'price',
     type: 'decimal',
+    precision:10,
+    scale:2,
     nullable: false,
   })
   price: number;
@@ -55,6 +57,7 @@ export class TicketTypeEntity{
   @Column({
     name: 'is_available',
     type: 'boolean',
+    default:true
   })
   isAvailable: boolean;
   

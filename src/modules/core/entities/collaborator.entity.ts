@@ -22,7 +22,7 @@ export class CollaboratorEntity {
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
-    default: () => 'CURRENT_timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
     comment: 'Fecha de creacion del colaborador',
   })
   createdAt: Date;
@@ -30,7 +30,7 @@ export class CollaboratorEntity {
   @UpdateDateColumn({
     name: 'updated_at',
     type: 'timestamp',
-    default: () => 'CURRENT_timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
     comment: 'Fecha de actualizacion del colaborador',
   })
   updatedAt: Date;
@@ -43,17 +43,21 @@ export class CollaboratorEntity {
   })
   deletedAt: Date;
 
-  @OneToMany(() => CatalogueEntity, (access_level) => access_level.id)
+  @ManyToOne(() => CatalogueEntity, (access_level) => access_level.id)
+  @JoinColumn({
+    name:'access_level_id',
+    foreignKeyConstraintName: 'collaborator_access_level_id',
+  })
   access_level: CatalogueEntity;
 
-  @ManyToOne(() => EventEntity, (event) => event.id)
+  @ManyToOne(() => EventEntity, (event) => event.id, {cascade:true})
   @JoinColumn({
     name: 'event_id',
     foreignKeyConstraintName: 'collaborator_event_id',
   })
   event: EventEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.id)
+  @ManyToOne(() => UserEntity, (user) => user.id, {cascade:true})
   @JoinColumn({
     name: 'user_id',
     foreignKeyConstraintName: 'collaborator_user_id',

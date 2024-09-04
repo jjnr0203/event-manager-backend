@@ -54,6 +54,7 @@ export class TransactionEntity {
     name: 'transaction_date',
     type: Date,
     nullable: false,
+    default:()=>'CURRENT_TIMESTAMP'
   })
   transactionDate: Date;
 

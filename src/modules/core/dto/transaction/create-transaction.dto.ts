@@ -1,4 +1,5 @@
 import { IsBoolean, IsDate, IsNotEmpty, isNotEmpty, IsString } from "class-validator";
+import { PaymentEntity } from "../../entities/payment.entity";
 
 
 export class CreateTransactionDto {
@@ -20,5 +21,5 @@ export class CreateTransactionDto {
     transactionDate: Date;
     
     @IsNotEmpty()
-    payments: string[];
+    payments: PaymentEntity[];
 }
