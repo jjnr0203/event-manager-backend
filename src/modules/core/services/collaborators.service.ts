@@ -1,4 +1,4 @@
 import { Controller, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class CollaboratorsServices {}
+export class CollaboratorsService {}

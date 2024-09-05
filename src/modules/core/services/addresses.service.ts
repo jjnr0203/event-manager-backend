@@ -7,42 +7,42 @@ import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
 
 @Injectable()
 export class AddressesService {
-    constructor(
-        @Inject(CoreRepositoryEnum.ADDRESS_REPOSITORY)
-        private repository: Repository<AddressEntity>
-    ) {}
-    
-    async create(payload: CreateAddresDto) {
-        const address = await this.repository.create(payload);
-        await this.repository.save(address);
-        return address;
-    }
-    async findAll() {
-        console.log('ejecutado service find all');
-        const address = await this.repository.find()
-        console.log(address, 'service');
-        return address
-    }
-    async findOne(id: string) {
-        const address = await this.repository.findOne({
-            where:{id:id}
-          })
-          return event
-    }
-    async update(id: string, payload: UpdateAddresDto) {
-        const address = await this.repository.preload({ id:id, ...payload });
-        if (!address) throw new NotFoundException('Address not found');
-        try {
-        await this.repository.save(address);
-        return address;
-        } catch (error) {
-        console.log(error);
+  constructor(
+    @Inject(CoreRepositoryEnum.ADDRESS_REPOSITORY)
+    private repository: Repository<AddressEntity>,
+  ) {}
 
-        return 'Error updating the event';
-        }
+  async create(payload: CreateAddresDto) {
+    const address = await this.repository.create(payload);
+    await this.repository.save(address);
+    return address;
+  }
+  async findAll() {
+    console.log('ejecutado service find all');
+    const addresses = await this.repository.find();
+    console.log(addresses);
+    return addresses;
+  }
+  async findOne(id: string) {
+    const address = await this.repository.findOne({
+      where: { id: id },
+    });
+    return address;
+  }
+  async update(id: string, payload: UpdateAddresDto) {
+    const address = await this.repository.preload({ id: id, ...payload });
+    if (!address) throw new NotFoundException('Address not found');
+    try {
+      await this.repository.save(address);
+      return address;
+    } catch (error) {
+      console.log(error);
+
+      return 'Error updating the address';
     }
-    async delete(id: string) {
-        const address = await this.repository.softDelete(id);
-        return address;
-    }
+  }
+  async delete(id: string) {
+    const address = await this.repository.softDelete(id);
+    return address;
+  }
 }

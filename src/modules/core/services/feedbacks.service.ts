@@ -11,7 +11,7 @@ import { CreateFeedbackDto } from '../dto/feedback/create-feedback.dto';
 import { UpdateFeedbackDto } from '../dto/feedback/update-feedback.dto';
 
 @Injectable()
-export class FeedbacksServices {
+export class FeedbacksService {
   constructor(
     @Inject(CoreRepositoryEnum.FEEDBACK_REPOSITORY)
     private repository: Repository<FeedbackEntity>,
@@ -24,34 +24,31 @@ export class FeedbacksServices {
   }
 
   async findAll() {
-    console.log('execute the service find all');
     const feedback = await this.repository.find();
-    console.log(feedback, 'service');
     return feedback;
   }
 
   async findOne(id: string) {
-    const feedback = await this.repository.find({
+    const feedback = await this.repository.findOne({
       where: { id },
     });
-    console.log('Feedback Found');
     return feedback;
   }
 
   async update(id: string, payload: UpdateFeedbackDto) {
     const feedback = await this.repository.preload({ id: id, ...payload });
 
-    if(!feedback) throw new NotFoundException ('Feedback not found')
-        try{
-            await this.repository.save(feedback)
-        }catch (error){
-            console.error(error);
-        }
+    if (!feedback) throw new NotFoundException('Feedback not found');
+    try {
+      await this.repository.save(feedback);
+    } catch (error) {
+      console.error(error);
+      return 'Error updating feedback';
+    }
   }
 
-  async delete(id:string){
-    const feedback = await this.repository.softDelete(id)
-    console.log(' feedback deleted')
+  async delete(id: string) {
+    const feedback = await this.repository.softDelete(id);
     return feedback;
   }
 }

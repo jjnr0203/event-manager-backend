@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { SponsorsService } from '../services/sponsors.service';
 import { CreateSponsorDto, UpdateSponsorDto } from '../dto';
 
-@Controller('events')
-export class EventsController {
+@Controller('sponsors')
+export class SponsorsController {
     constructor(private readonly sponsorsService:SponsorsService){}
 
     @Post()

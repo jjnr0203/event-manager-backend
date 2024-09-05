@@ -7,33 +7,37 @@ import { Repository } from 'typeorm/repository/Repository';
 
 @Injectable()
 export class InformationUsersService {
-    constructor(
-        @Inject(CoreRepositoryEnum.INFORMATION_USER_REPOSITORY)
-        private repository: Repository<InformationUserEntity>
-    ) {}
+  constructor(
+    @Inject(CoreRepositoryEnum.INFORMATION_USER_REPOSITORY)
+    private repository: Repository<InformationUserEntity>,
+  ) {}
 
-   async create(payload: CreateInformationUserDto) {
+  async create(payload: CreateInformationUserDto) {
     const informationUser = await this.repository.create(payload);
     await this.repository.save(informationUser);
     return informationUser;
   }
 
-   async findAll() {
+  async findAll() {
     console.log('ejecutado service find all');
-    const informationUsers = await this.repository.find()
+    const informationUsers = await this.repository.find();
     console.log(informationUsers, 'service');
-    return informationUsers
+    return informationUsers;
   }
 
-   async findOne(id: string) {
+  async findOne(id: string) {
     const informationUser = await this.repository.findOne({
-      where:{id:id}
-    })
-    return informationUser
+      where: { id: id },
+    });
+    return informationUser;
   }
   async update(id: string, payload: UpdateInformationUserDto) {
-    const informationUser = await this.repository.preload({ id:id, ...payload });
-    if (!informationUser) throw new NotFoundException('Information user not found');
+    const informationUser = await this.repository.preload({
+      id: id,
+      ...payload,
+    });
+    if (!informationUser)
+      throw new NotFoundException('Information user not found');
     try {
       await this.repository.save(informationUser);
       return informationUser;
@@ -43,7 +47,7 @@ export class InformationUsersService {
       return 'Error updating the user';
     }
   }
-   async delete(id: string) {
+  async delete(id: string) {
     const informationUser = await this.repository.softDelete(id);
     return informationUser;
   }

@@ -24,16 +24,16 @@ export class CreatePaymentDto {
     cuantity:number;
 
     @IsNotEmpty()
-    user: UserEntity[];
+    user: UserEntity;
 
     @IsNotEmpty()
-    paymentMethod: CatalogueEntity[];
+    paymentMethod: CatalogueEntity;
 
     @IsNotEmpty()
-    ticketType: TicketTypeEntity[];
+    ticketType: TicketTypeEntity;
 
     @IsNotEmpty()
-    transaction: CreateTransactionDto[];
+    transaction: CreateTransactionDto;
 
 
 }

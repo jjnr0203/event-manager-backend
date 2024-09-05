@@ -16,38 +16,35 @@ export class CataloguesService {
     await this.repository.save(catalogue);
     return catalogue;
   }
-  
-  async findAll(){
-    console.log('ejecutado service find all');
-    
-    const catalogues = await this.repository.find()
-    console.log(catalogues, 'service');
-    
-    return catalogues
+
+  async findAll() {
+    const catalogues = await this.repository.find();
+
+    return catalogues;
   }
 
-  async findOne(id:string){
+  async findOne(id: string) {
     const event = await this.repository.findOne({
-      where:{id:id}
-    })
-    return event
+      where: { id: id },
+    });
+    return event;
   }
 
   async update(id: string, payload: UpdateCatalogueDto) {
-    const event = await this.repository.preload({ id:id, ...payload });
-    if (!event) throw new NotFoundException('Event not found');
+    const event = await this.repository.preload({ id: id, ...payload });
+    if (!event) throw new NotFoundException('Catalogue not found');
     try {
       await this.repository.save(event);
       return event;
     } catch (error) {
       console.log(error);
 
-      return 'Error updating the event';
+      return 'Error updating catalogue';
     }
   }
 
   async delete(id: string) {
-    const event = await this.repository.softDelete(id);
-    return event;
+    const catalogue = await this.repository.softDelete(id);
+    return catalogue;
   }
 }

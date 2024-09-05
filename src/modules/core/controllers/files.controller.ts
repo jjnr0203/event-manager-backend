@@ -1,13 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { FilesServices } from '../services/files.service';
-import { CreateCatalogueDto, CreateFileDto, UpdateFileDto } from '../dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { CreateFileDto, UpdateFileDto } from '../dto';
+import { FilesService } from '../services';
 
 @Controller('files')
 export class FilesController {
-    constructor(private readonly filesService: FilesServices) {}
+  constructor(private readonly filesService: FilesService) {}
 
-    @Post()
-   async create(@Body() payload: CreateFileDto) {
+  @Post()
+  async create(@Body() payload: CreateFileDto) {
     const file = await this.filesService.create(payload);
     return file;
   }
@@ -33,6 +41,6 @@ export class FilesController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const file = await this.filesService.delete(id);
-    return file
+    return file;
   }
 }

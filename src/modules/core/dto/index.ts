@@ -24,8 +24,6 @@ export * from './sponsor/update-sponsor.dto'
 
 export * from './transaction/create-transaction.dto'
 
-export * from './venue/create-venue.dto'
-export * from './venue/update-venue.dto'
 
 
 
