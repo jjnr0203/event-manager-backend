@@ -1,4 +1,4 @@
-import { Controller, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCatalogueDto, UpdateCatalogueDto } from '../dto';
 import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
