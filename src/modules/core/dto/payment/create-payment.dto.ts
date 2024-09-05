@@ -10,7 +10,7 @@ export class CreatePaymentDto {
     
     @IsNumber()
     @IsNotEmpty()
-    amount: Date;
+    amount: number;
     
     @IsNotEmpty()
     state:CatalogueEntity;
@@ -19,7 +19,7 @@ export class CreatePaymentDto {
     @IsNotEmpty()
     purchase_date:Date;
     
-    @IsInt()
+    @IsNumber()
     @IsNotEmpty()
     cuantity:number;
 
