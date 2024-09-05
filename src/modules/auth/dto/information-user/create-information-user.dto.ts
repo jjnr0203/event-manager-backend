@@ -1,5 +1,6 @@
 import { IsString, IsNotEmpty } from "class-validator";
 import { UserEntity } from "../../entities/user.entity";
+import { CreateUserDto } from "../user/create-user.dto";
 
 export class CreateInformationUserDto{
     @IsString()
@@ -14,6 +15,5 @@ export class CreateInformationUserDto{
     @IsNotEmpty()
     phone: string;
 
-    @IsNotEmpty()
-    user: UserEntity
+    //user: CreateUserDto[]
 }
