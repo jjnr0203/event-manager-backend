@@ -11,20 +11,20 @@ export class CreateTicketDto{
     
     @IsBoolean()
     @IsNotEmpty()
-    state: string;
+    state: boolean;
     
     @IsDate()
     @IsNotEmpty()
     generatedDate: Date;
     
     @IsString()
-    ticketType:TicketTypeEntity[];
+    ticketType:TicketTypeEntity;
     
     @IsString()
-    user:UserEntity[];
+    user:UserEntity;
     
     @IsString()
-    event:EventEntity[];
+    event:EventEntity;
 
 
 }

@@ -3,7 +3,6 @@ import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
 import { PaymentEntity } from '../entities/payment.entity';
 import { CreatePaymentDto } from '../dto/payment/create-payment.dto';
-import { UpdatePaymentDto } from '../dto/payment/update-payment.dto';
 
 @Injectable()
 export class PaymentsService {

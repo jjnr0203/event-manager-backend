@@ -15,6 +15,7 @@ import { NotificationEntity } from '../entities/notification.entity';
 import { TicketTypeEntity } from '../entities/ticket-type.entity';
 import { TransactionEntity } from '../entities/transaction.entity';
 import { RegistrationEntity } from '../entities/registration.entity';
+import { TicketEntity } from '../entities/ticket.entity';
 
 export const coreProviders = [
   {
@@ -87,6 +88,12 @@ export const coreProviders = [
     provide: CoreRepositoryEnum.TRANSACTION_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(TransactionEntity),
+    inject: [DatabaseProviderEnum.POSTGRES],
+  },
+  {
+    provide: CoreRepositoryEnum.TICKET_REPOSITORY,
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(TicketEntity),
     inject: [DatabaseProviderEnum.POSTGRES],
   },
 ];
