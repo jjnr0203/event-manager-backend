@@ -1,13 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AddressesService } from '../services/addresses.service';
-import { CreateAddresDto, CreateCatalogueDto, UpdateAddresDto } from '../dto';
+import { CreateAddresDto, UpdateAddresDto } from '../dto';
 
 @Controller('addresses')
 export class AddressesController {
-    constructor(private readonly addressesService: AddressesService) {}
+  constructor(private readonly addressesService: AddressesService) {}
 
-    @Post()
-   async create(@Body() payload: CreateAddresDto) {
+  @Post()
+  async create(@Body() payload: CreateAddresDto) {
     const addresse = await this.addressesService.create(payload);
     return addresse;
   }
@@ -33,7 +41,6 @@ export class AddressesController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const addresse = await this.addressesService.delete(id);
-    return addresse
+    return addresse;
   }
-
 }
