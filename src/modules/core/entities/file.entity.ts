@@ -85,12 +85,9 @@ export class FileEntity {
   })
   createdAt: Date;
 
-  @OneToOne(() => InformationUserEntity, infomationUser => infomationUser.id, {nullable:true})
-  profielPictureUser: InformationUserEntity;
-
-  @ManyToOne(() => EventEntity, (event) => event.id, {nullable:true, eager:true})
-  @JoinColumn({
-    name: 'files_event_id',
+  @Column({
+    type:'varchar',
+    nullable:false
   })
-  event: EventEntity;
+  modelId:string;
 }

@@ -20,6 +20,8 @@ export class EventsService {
     const event = await this.repository.findOne({
       where: { id },
     });
+
+    if (!event) throw new NotFoundException('Event not found');
     return event;
   }
 

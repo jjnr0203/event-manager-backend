@@ -1,46 +1,43 @@
-import { Controller, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { AuthRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
-import { CreateInformationUserDto, UpdateInformationUserDto } from '../dto';
-import { InformationUserEntity } from '../entities/information_user.entity';
+import { CreateUserDto, UpdateUserDto } from '../dto';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class UsersService {
-    
   constructor(
-    @Inject(CoreRepositoryEnum.INFORMATION_USER_REPOSITORY)
-    private repository: Repository<InformationUserEntity>,
+    @Inject(AuthRepositoryEnum.USER_REPOSITORY)
+    private repository: Repository<UserEntity>,
   ) {}
 
-  async create(payload: CreateInformationUserDto) {
-    const informationUser = await this.repository.create(payload);
-    await this.repository.save(informationUser);
-    return informationUser;
+  async create(payload: CreateUserDto) {
+    const user = await this.repository.create(payload);
+    await this.repository.save(user);
+    return user;
   }
 
   async findAll() {
-    console.log('ejecutado service find all');
-    const informationUsers = await this.repository.find();
-    console.log(informationUsers, 'service');
-    return informationUsers;
+    const users = await this.repository.find();
+    return users;
   }
 
   async findOne(id: string) {
-    const informationUser = await this.repository.findOne({
+    const user = await this.repository.findOne({
       where: { id: id },
     });
-    return informationUser;
+    return user;
   }
-  async update(id: string, payload: UpdateInformationUserDto) {
-    const informationUser = await this.repository.preload({
+  async update(id: string, payload: UpdateUserDto) {
+    const user = await this.repository.preload({
       id: id,
       ...payload,
     });
-    if (!informationUser)
+    if (!user)
       throw new NotFoundException('Information user not found');
     try {
-      await this.repository.save(informationUser);
-      return informationUser;
+      await this.repository.save(user);
+      return user;
     } catch (error) {
       console.log(error);
 
@@ -48,8 +45,7 @@ export class UsersService {
     }
   }
   async delete(id: string) {
-    const informationUser = await this.repository.softDelete(id);
-    return informationUser;
+    const user = await this.repository.softDelete(id);
+    return user;
   }
-
 }

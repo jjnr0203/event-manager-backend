@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateInformationUserDto, UpdateInformationUserDto } from '../dto';
+import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UsersService } from '../services/users.service';
 
 @Controller('users')
@@ -15,7 +15,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() payload: CreateInformationUserDto) {
+  async create(@Body() payload: CreateUserDto) {
     const user = await this.usersService.create(payload);
     return user;
   }
@@ -33,17 +33,12 @@ export class UsersController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() payload: UpdateInformationUserDto,
-  ) {
-    const user = await this.usersService.update(id, payload);
-    return user;
+  async update(@Param('id') id: string, @Body() payload: UpdateUserDto) {
+    return await this.usersService.update(id, payload);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    const user = await this.usersService.delete(id);
-    return user;
+    return await this.usersService.delete(id);
   }
 }

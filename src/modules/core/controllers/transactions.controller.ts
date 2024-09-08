@@ -1,29 +1,39 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { TransactionsService } from '../services';
 import { CreateTransactionDto } from '../dto';
 import { UpdateTicketDto } from '../dto/ticket/update-ticket.dto';
 
 @Controller('transactions')
 export class TransactionsController {
-    constructor(private readonly transactionsService:TransactionsService){}
+  constructor(private readonly transactionsService: TransactionsService) {}
 
-    @Post()
-    create(@Body() createTransactionDto:CreateTransactionDto){
-        return 'This action adds transaction created';
-    }
+  @Post()
+  async create(@Body() createTransactionDto: CreateTransactionDto) {
+    return await this.transactionsService.create(createTransactionDto);
+  }
 
-    @Get()
-    findAll(){
-        return 'This action returns transactions Found';
-    }
+  @Get()
+  findAll() {
+    const transactions = this.transactionsService.findAll();
+    return transactions;
+  }
 
-    @Get(':id')
-    findOne(@Param('id') id: string){
-        return `This action returns a ${id} transaction`;
-    }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    const transaction = this.transactionsService.findOne(id);
+    return transaction;
+  }
 
-    @Delete(':id')
-    delete(@Param('id')id:string){
-        return `This action remove a ${id} transaction`
-    }
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.transactionsService.delete(id);
+  }
 }

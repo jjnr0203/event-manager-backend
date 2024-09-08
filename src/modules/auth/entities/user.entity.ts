@@ -27,7 +27,6 @@ export class UserEntity {
   @DeleteDateColumn({
     name: 'deleted_at',
     type: 'timestamp',
-    nullable: true,
     comment: 'Registro de borrado',
   })
   deletedAt: Date;

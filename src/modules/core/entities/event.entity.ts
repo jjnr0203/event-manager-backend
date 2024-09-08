@@ -14,7 +14,6 @@ import {
 import { CatalogueEntity } from './catalogue.entity';
 import { SponsorEntity } from './sponsor.entity';
 import { FeedbackEntity } from './feedback.entity';
-import { FileEntity } from './file.entity';
 import { RegistrationEntity } from './registration.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import { AddressEntity } from './address.entity';
@@ -101,9 +100,6 @@ export class EventEntity {
 
   @OneToMany(()=>SponsorEntity, (sponsor) => sponsor.id)
   sponsors:SponsorEntity[]
-
-  @OneToMany(()=>FileEntity, (file) => file.id)
-  files:FileEntity[]
 
   @OneToMany(()=>RegistrationEntity, (registration) => registration.id)
   registrations:RegistrationEntity[]

@@ -1,4 +1,4 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import { CreateSponsorDto } from '../sponsor/create-sponsor.dto';
 import { CatalogueEntity } from '../../entities/catalogue.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
@@ -38,9 +38,10 @@ export class CreateEventDto {
   @IsNotEmpty()
   address: CreateAddresDto;
   
-  @IsNotEmpty()
+  @IsOptional()
   sponsors?: CreateSponsorDto[];
   
-  @IsNotEmpty()
-  files: CreateFileDto[];
+  @IsOptional()
+  @IsUUID()
+  modelId?:string
 }

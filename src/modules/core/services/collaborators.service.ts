@@ -19,9 +19,9 @@ export class CollaboratorsService {
   }
 
   async findAll() {
-    const collaborator = await this.repository.find();
+    const collaborators = await this.repository.find();
 
-    return collaborator;
+    return collaborators;
   }
 
   async findOne(id: string) {
@@ -45,7 +45,7 @@ export class CollaboratorsService {
     }
   }
 
-  async delete(id:string) {
+  async delete(id: string) {
     const collaborator = await this.repository.softDelete(id);
 
     return collaborator;
