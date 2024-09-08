@@ -17,7 +17,6 @@ export class EventsController {
         return 'should return an event'
     }
     
-    
     @Post()
     create(){
         return 'should return a created event'
