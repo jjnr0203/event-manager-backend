@@ -1,14 +1,14 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateInformationUserDto } from '../dto';
 import { UpdateInformationUserDto } from '../dto';
-import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
+import { AuthRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { InformationUserEntity } from '../entities/information_user.entity';
 import { Repository } from 'typeorm/repository/Repository';
 
 @Injectable()
 export class InformationUsersService {
   constructor(
-    @Inject(CoreRepositoryEnum.INFORMATION_USER_REPOSITORY)
+    @Inject(AuthRepositoryEnum.INFORMATION_USER_REPOSITORY)
     private repository: Repository<InformationUserEntity>,
   ) {}
 

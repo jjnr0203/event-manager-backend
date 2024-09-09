@@ -61,4 +61,7 @@ export class InformationUserEntity {
   })
   user: UserEntity;
 
+  fileId: string;
+
+
 }

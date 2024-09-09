@@ -1,14 +1,14 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
-import { NotificationEntity } from '../entities/notification.entity';
+import { EmailEntity } from '../entities/email.entity';
 import { Repository } from 'typeorm';
 import { CreateNotificationDto, UpdateNotificationDto } from '../dto';
 
 @Injectable()
-export class NotificationsService {
+export class EmailsService {
   constructor(
     @Inject(CoreRepositoryEnum.NOTIFICATION_REPOSITORY)
-    private repository: Repository<NotificationEntity>
+    private repository: Repository<EmailEntity>
   ) {}
 
   async create(payload:CreateNotificationDto){

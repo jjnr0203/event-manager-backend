@@ -72,10 +72,10 @@ export class EventEntity {
   })
   end_date: Date;
 
-  @ManyToOne(()=>CatalogueEntity, catalogue=> catalogue.id)
+  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
   @JoinColumn({
-    name:'status_id',
-    foreignKeyConstraintName:'event_status_id'
+    name: 'status_id',
+    foreignKeyConstraintName: 'event_status_id',
   })
   status: CatalogueEntity;
 
@@ -86,25 +86,35 @@ export class EventEntity {
   })
   isPublic: boolean;
 
+  fileId: string;
+
   @ManyToOne(() => CatalogueEntity, (category) => category.id)
-  @JoinColumn({ name: 'category_id', foreignKeyConstraintName: 'event_catalogue_id_foreign_key'})
+  @JoinColumn({
+    name: 'category_id',
+    foreignKeyConstraintName: 'event_catalogue_id_foreign_key',
+  })
   category: CatalogueEntity;
 
-  @ManyToOne(() => UserEntity, (user)=> user.id)
-  @JoinColumn({ name: 'organizer_id', foreignKeyConstraintName: 'event_user_id_foreign_key'})
+  @ManyToOne(() => UserEntity, (user) => user.id)
+  @JoinColumn({
+    name: 'organizer_id',
+    foreignKeyConstraintName: 'event_user_id_foreign_key',
+  })
   organizer: UserEntity;
 
-  @ManyToOne(() => AddressEntity, (address)=> address.id)
-  @JoinColumn({ name: 'address_id', foreignKeyConstraintName: 'event_address_id_foreign_key'})
+  @ManyToOne(() => AddressEntity, (address) => address.id)
+  @JoinColumn({
+    name: 'address_id',
+    foreignKeyConstraintName: 'event_address_id_foreign_key',
+  })
   address: AddressEntity;
 
-  @OneToMany(()=>SponsorEntity, (sponsor) => sponsor.id)
-  sponsors:SponsorEntity[]
+  @OneToMany(() => SponsorEntity, (sponsor) => sponsor.id)
+  sponsors: SponsorEntity[];
 
-  @OneToMany(()=>RegistrationEntity, (registration) => registration.id)
-  registrations:RegistrationEntity[]
+  @OneToMany(() => RegistrationEntity, (registration) => registration.id)
+  registrations: RegistrationEntity[];
 
-  @OneToMany(()=>FeedbackEntity, (feedback) => feedback.id)
-  feedback:FeedbackEntity[]
-
+  @OneToMany(() => FeedbackEntity, (feedback) => feedback.id)
+  feedback: FeedbackEntity[];
 }

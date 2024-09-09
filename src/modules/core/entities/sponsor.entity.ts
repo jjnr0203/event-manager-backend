@@ -43,6 +43,9 @@ export class SponsorEntity {
   })
   name: string;
 
+  fileId: string;
+
+
   @ManyToOne(() => EventEntity, (event) => event.id)
   @JoinColumn({
     name: 'event_id',

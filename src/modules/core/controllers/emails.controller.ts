@@ -7,12 +7,12 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { NotificationsService } from '../services';
+import { EmailsService } from '../services';
 import { UpdateNotificationDto } from '../dto';
 
-@Controller('notifications')
-export class NotificationsController {
-  constructor(private readonly notificationsService: NotificationsService) {}
+@Controller('emails')
+export class EmailsController {
+  constructor(private readonly notificationsService: EmailsService) {}
   @Get()
   findAll() {
     return 'This action returns all notifications';

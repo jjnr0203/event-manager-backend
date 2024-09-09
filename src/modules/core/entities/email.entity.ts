@@ -10,8 +10,8 @@ import {
 } from 'typeorm';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
 
-@Entity('notifications', { schema: 'core' })
-export class NotificationEntity {
+@Entity('emails', { schema: 'core' })
+export class EmailEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -58,11 +58,5 @@ export class NotificationEntity {
   })
   hasBeenRead: boolean;
 
-  @ManyToMany(()=> UserEntity,  user => user.id, {cascade:true})
-  @JoinTable({
-    name:'notification_users',
-    joinColumn:{name:'notification_id'},
-    inverseJoinColumn:{name:'user_id'},
-  })
-  users: UserEntity[];
+  
 }
