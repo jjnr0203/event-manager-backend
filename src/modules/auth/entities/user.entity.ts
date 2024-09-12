@@ -6,10 +6,12 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { RoleEntity } from './role.entity';
+import { InformationUserEntity } from './information_user.entity';
 
 @Entity('users', { schema: 'auth' })
 export class UserEntity {
@@ -53,11 +55,14 @@ export class UserEntity {
   })
   password: string;
 
-  @ManyToMany(() => RoleEntity)
+  @ManyToMany(() => RoleEntity, {cascade:true})
   @JoinTable({
     name: 'user_roles',
     joinColumn: { name: 'user_id' },
     inverseJoinColumn: { name: 'role_id' },
   })
   roles: RoleEntity[];
+
+  @OneToOne( () => InformationUserEntity, (informationUser) => informationUser.id, {cascade:true})
+  informationUser: InformationUserEntity;
 }

@@ -1,9 +1,9 @@
-import { Controller, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { AuthRepositoryEnum, CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
+import {  Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { AuthRepositoryEnum} from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
-import { CreateInformationUserDto, UpdateInformationUserDto } from '../dto';
-import { InformationUserEntity } from '../entities/information_user.entity';
+import {  UpdateInformationUserDto } from '../dto';
 import { RoleEntity } from '../entities/role.entity';
+import { CreateRoleDto } from '../dto/role/create-role.dto';
 
 @Injectable()
 export class RolesService {
@@ -13,7 +13,7 @@ export class RolesService {
     private repository: Repository<RoleEntity>,
   ) {}
 
-  async create(payload: CreateInformationUserDto) {
+  async create(payload: CreateRoleDto) {
     const informationUser = await this.repository.create(payload);
     await this.repository.save(informationUser);
     return informationUser;

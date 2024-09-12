@@ -3,17 +3,26 @@ import { AuthRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UserEntity } from '../entities/user.entity';
+import { InformationUserEntity } from '../entities/information_user.entity';
+import { InformationUsersService } from './information-users.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @Inject(AuthRepositoryEnum.USER_REPOSITORY)
     private repository: Repository<UserEntity>,
+    private readonly informationUsersService: InformationUsersService,
   ) {}
 
   async create(payload: CreateUserDto) {
-    const user = await this.repository.create(payload);
+    const { informationUser, ...newUser } = payload;
+
+    const user = await this.repository.create(newUser);
     await this.repository.save(user);
+    await this.informationUsersService.create({
+      ...informationUser,
+      user,
+    });
     return user;
   }
 
@@ -33,8 +42,7 @@ export class UsersService {
       id: id,
       ...payload,
     });
-    if (!user)
-      throw new NotFoundException('Information user not found');
+    if (!user) throw new NotFoundException('Information user not found');
     try {
       await this.repository.save(user);
       return user;

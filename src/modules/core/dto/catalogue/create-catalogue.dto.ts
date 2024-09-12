@@ -13,7 +13,7 @@ export class CreateCatalogueDto {
     @IsOptional()
     description: string;
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsNumber()
     code: number;
 }

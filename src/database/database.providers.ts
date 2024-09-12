@@ -1,17 +1,22 @@
+import { ConfigType } from '@nestjs/config';
+import { config } from 'src/config/config';
 import { DatabaseProviderEnum } from 'src/shared/enums/repository.enum';
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
   {
     provide: DatabaseProviderEnum.POSTGRES,
-    useFactory: async () => {
-      const dataSource = new DataSource({
+    inject: [config.KEY],    
+    useFactory: async (configService:ConfigType<typeof config>) => {
+      const {host, port, username, password,database } = configService.database
+      
+      const dataSource = new DataSource({ 
         type: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'postgres',
-        password: '1234',
-        database: 'event_manager',
+        host,
+        port,
+        username,
+        password,
+        database,
         entities: [
             __dirname + '/../**/*.entity{.ts,.js}',
         ],

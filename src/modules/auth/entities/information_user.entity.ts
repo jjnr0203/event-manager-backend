@@ -46,22 +46,8 @@ export class InformationUserEntity {
   })
   lastname: string;
 
-  @Column({
-    name: 'phone',
-    type: 'varchar',
-    nullable: false,
-  })
-  phone: string;
-
-  @ManyToOne(() => UserEntity, (users) => users.id)
-  @JoinColumn({
-    name: 'user_id',
-    referencedColumnName: 'id',
-    foreignKeyConstraintName: 'information_organizator_user_id_foreign_key',
-  })
+  @OneToOne(() => UserEntity, (users) => users.id)
+  @JoinColumn({ name: 'user_id' })
   user: UserEntity;
-
-  fileId: string;
-
 
 }

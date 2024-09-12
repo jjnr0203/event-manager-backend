@@ -7,15 +7,18 @@ import { InformationUsersService } from './services/information-users.service';
 import { RolesService } from './services/roles.service';
 import { UsersService } from './services/users.service';
 import { authProviders } from './providers';
+import { AuthController } from './controllers/auth.controller';
+import { GoogleStrategy } from './utils/google.strategy';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [InformationUsersController, RolesController, UsersController],
+  controllers: [AuthController,InformationUsersController, RolesController, UsersController, AuthController],
   providers: [
     ...authProviders,
     InformationUsersService,
     RolesService,
     UsersService,
+    GoogleStrategy
   ],
 })
 export class AuthModule {}
