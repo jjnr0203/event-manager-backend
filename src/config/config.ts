@@ -9,4 +9,8 @@ export const config = registerAs('config', () => ({
     password: process.env.DB_PASSWORD,
     username: process.env.DB_USER,
   },
+  googleCredentials: {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+  }
 }));

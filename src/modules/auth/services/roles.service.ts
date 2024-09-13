@@ -32,6 +32,13 @@ export class RolesService {
     });
     return informationUser;
   }
+
+  async findByCode(id: string) {
+    const informationUser = await this.repository.findOne({
+      where: { code: id },
+    });
+    return informationUser;
+  }
   async update(id: string, payload: UpdateInformationUserDto) {
     const informationUser = await this.repository.preload({
       id: id,

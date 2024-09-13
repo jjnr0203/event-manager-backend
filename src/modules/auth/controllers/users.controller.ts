@@ -14,11 +14,11 @@ import { UsersService } from '../services/users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  async create(@Body() payload: CreateUserDto) {
-    const user = await this.usersService.create(payload);
-    return user;
-  }
+  // @Post()
+  // async create(@Body() payload: CreateUserDto) {
+  //   const user = await this.usersService.create(payload);
+  //   return user;
+  // }
 
   @Get()
   async findAll() {

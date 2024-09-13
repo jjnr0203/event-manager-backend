@@ -27,7 +27,7 @@ export class InformationUsersService {
 
   async findOne(id: string) {
     const informationUser = await this.repository.findOne({
-      where: { id: id },
+      where: { user:{id}},
     });
     return informationUser;
   }

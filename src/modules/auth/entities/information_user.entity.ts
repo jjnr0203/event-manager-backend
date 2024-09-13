@@ -42,12 +42,19 @@ export class InformationUserEntity {
   @Column({
     name: 'lastname',
     type: 'varchar',
-    nullable: false,
+    nullable: true,
   })
   lastname: string;
 
+  @Column({
+    name: 'phone',
+    type: 'varchar',
+    nullable: true,
+  })
+  phone: string;
+
+
   @OneToOne(() => UserEntity, (users) => users.id)
-  @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
 }

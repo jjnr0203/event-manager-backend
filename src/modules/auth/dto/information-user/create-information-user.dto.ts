@@ -8,9 +8,11 @@ export class CreateInformationUserDto {
   name: string;
 
   @IsString()
-  @IsNotEmpty()
-  lastname: string;
+  @IsOptional()
+  lastname?: string; 
   
-  @IsNotEmpty()
-  user: UserEntity;
+  @IsString()
+  @IsOptional()
+  phone?: string; 
+
 }

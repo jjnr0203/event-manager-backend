@@ -5,25 +5,33 @@ import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UserEntity } from '../entities/user.entity';
 import { InformationUserEntity } from '../entities/information_user.entity';
 import { InformationUsersService } from './information-users.service';
+import { CreateUserFromGoogleDto } from '../dto/user/create-google-user.dto';
+import { RolesService } from './roles.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @Inject(AuthRepositoryEnum.USER_REPOSITORY)
     private repository: Repository<UserEntity>,
-    private readonly informationUsersService: InformationUsersService,
+    private rolesService: RolesService,
   ) {}
 
-  async create(payload: CreateUserDto) {
-    const { informationUser, ...newUser } = payload;
-
-    const user = await this.repository.create(newUser);
-    await this.repository.save(user);
-    await this.informationUsersService.create({
-      ...informationUser,
-      user,
+  async create(payload: { [key: string]: any }) {
+    const role = await this.rolesService.findByCode('1');
+    const user = this.repository.create({
+      ...payload,
+      roles: [role],
     });
+    await this.repository.save(user);
     return user;
+  }
+
+  async createLocalUser(payload: CreateUserDto) {
+    return this.create(payload);
+  }
+
+  async createUserFromGoogle(payload: CreateUserFromGoogleDto) {
+    return this.create(payload);
   }
 
   async findAll() {
@@ -34,9 +42,13 @@ export class UsersService {
   async findOne(id: string) {
     const user = await this.repository.findOne({
       where: { id: id },
+      relations: {
+        roles: true,
+      },
     });
     return user;
   }
+
   async update(id: string, payload: UpdateUserDto) {
     const user = await this.repository.preload({
       id: id,

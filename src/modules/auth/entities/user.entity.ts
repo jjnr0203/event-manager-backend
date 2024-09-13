@@ -51,7 +51,7 @@ export class UserEntity {
   @Column({
     name: 'password',
     type: 'varchar',
-    nullable: false,
+    nullable: true,
   })
   password: string;
 
@@ -64,5 +64,6 @@ export class UserEntity {
   roles: RoleEntity[];
 
   @OneToOne( () => InformationUserEntity, (informationUser) => informationUser.id, {cascade:true})
+  @JoinColumn({ name: 'information_user_id' })
   informationUser: InformationUserEntity;
 }

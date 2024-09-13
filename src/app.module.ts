@@ -19,6 +19,8 @@ import { config } from './config/config';
         DB_NAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_USER: Joi.string().required(),
+        GOOGLE_CLIENT_ID: Joi.string().required(),
+        GOOGLE_SECRET: Joi.string().required(),
       }),
     }),
     DatabaseModule,
