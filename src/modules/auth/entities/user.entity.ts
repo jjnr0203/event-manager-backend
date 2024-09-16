@@ -1,4 +1,6 @@
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -12,6 +14,7 @@ import {
 } from 'typeorm';
 import { RoleEntity } from './role.entity';
 import { InformationUserEntity } from './information_user.entity';
+import * as bcrypt from 'bcrypt'
 
 @Entity('users', { schema: 'auth' })
 export class UserEntity {
@@ -53,7 +56,7 @@ export class UserEntity {
     type: 'varchar',
     nullable: true,
   })
-  password: string;
+  password?: string;
 
   @ManyToMany(() => RoleEntity, {cascade:true})
   @JoinTable({
@@ -62,8 +65,17 @@ export class UserEntity {
     inverseJoinColumn: { name: 'role_id' },
   })
   roles: RoleEntity[];
-
+ 
   @OneToOne( () => InformationUserEntity, (informationUser) => informationUser.id, {cascade:true})
   @JoinColumn({ name: 'information_user_id' })
   informationUser: InformationUserEntity;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword(){
+    // if(this.password){
+      this.password = await bcrypt.hash(this.password, 10)
+    // }
+  }
 }
+

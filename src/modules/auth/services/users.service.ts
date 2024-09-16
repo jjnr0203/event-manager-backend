@@ -27,11 +27,11 @@ export class UsersService {
   }
 
   async createLocalUser(payload: CreateUserDto) {
-    return this.create(payload);
+    return await this.create(payload);
   }
 
   async createUserFromGoogle(payload: CreateUserFromGoogleDto) {
-    return this.create(payload);
+    return await this.create(payload);
   }
 
   async findAll() {
@@ -41,7 +41,16 @@ export class UsersService {
 
   async findOne(id: string) {
     const user = await this.repository.findOne({
-      where: { id: id },
+      where: {id},
+      select:['id','email'],
+      relations:{roles:true, informationUser:true }
+    });
+    return user;
+  }
+  
+  async findOneByEmail(email: string) {
+    const user = await this.repository.findOne({
+      where: { email},
       relations: {
         roles: true,
       },

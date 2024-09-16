@@ -2,6 +2,7 @@ import { registerAs } from '@nestjs/config';
 
 export const config = registerAs('config', () => ({
   port: parseInt(process.env.PORT),
+  jwt: process.env.JWT_SECRET,
   database: {
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT),

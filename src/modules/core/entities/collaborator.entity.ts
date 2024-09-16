@@ -1,13 +1,11 @@
 import {
-  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
 import { RegistrationEntity } from './registration.entity';
 import { EventEntity } from './event.entity';
@@ -43,21 +41,21 @@ export class CollaboratorEntity {
   })
   deletedAt: Date;
 
-  @ManyToOne(() => CatalogueEntity, (access_level) => access_level.id)
+  @ManyToOne(() => CatalogueEntity)
   @JoinColumn({
-    name:'access_level_id',
+    name: 'access_level_id',
     foreignKeyConstraintName: 'collaborator_access_level_id',
   })
   access_level: CatalogueEntity;
 
-  @ManyToOne(() => EventEntity, (event) => event.id, {cascade:true})
+  @ManyToOne(() => EventEntity, { cascade: true })
   @JoinColumn({
     name: 'event_id',
     foreignKeyConstraintName: 'collaborator_event_id',
   })
   event: EventEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.id, {cascade:true})
+  @ManyToOne(() => UserEntity, { cascade: true })
   @JoinColumn({
     name: 'user_id',
     foreignKeyConstraintName: 'collaborator_user_id',

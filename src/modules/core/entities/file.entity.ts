@@ -4,9 +4,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToOne,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 import { EventEntity } from './event.entity';
 

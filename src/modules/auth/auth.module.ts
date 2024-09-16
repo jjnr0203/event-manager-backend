@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';
 import { authProviders } from './providers';
-import { GoogleStrategy } from './strategies';
+import { GoogleStrategy, JwtStrategy } from './strategies';
 import {
   AuthService,
   InformationUsersService,
@@ -14,9 +14,26 @@ import {
   RolesController,
   UsersController,
 } from './controllers';
+import { LocalStrategy } from './strategies/local.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { config } from 'src/config/config';
+import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    JwtModule.registerAsync({
+      inject: [config.KEY],
+      useFactory: (configService: ConfigType<typeof config>) => {
+        return {
+          secret: configService.jwt,
+          signOptions: {
+            expiresIn: '1h',
+          },
+        };
+      },
+    }),
+  ],
   controllers: [
     AuthController,
     InformationUsersController,
@@ -30,7 +47,9 @@ import {
     RolesService,
     UsersService,
     AuthService,
+    LocalStrategy,
     GoogleStrategy,
+    JwtStrategy
   ],
 })
 export class AuthModule {}

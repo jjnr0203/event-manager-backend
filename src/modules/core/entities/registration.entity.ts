@@ -6,7 +6,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { EventEntity } from './event.entity';
@@ -49,11 +48,11 @@ export class RegistrationEntity {
   })
   attended: boolean;
 
-  @ManyToOne(() => EventEntity, (event)=> event.id)
+  @ManyToOne(() => EventEntity)
   @JoinColumn({ name: 'event_id', foreignKeyConstraintName: 'registration_event_id_foreign_key'})
   event: EventEntity;
 
-  @ManyToOne(() => UserEntity, (user)=> user.id)
+  @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'user_id', foreignKeyConstraintName: 'registration_user_id_foreign_key'})
   user: UserEntity;
 

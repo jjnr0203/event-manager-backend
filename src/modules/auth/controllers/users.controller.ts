@@ -6,19 +6,22 @@ import {
   Param,
   Patch,
   Post,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UsersService } from '../services/users.service';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Post()
-  // async create(@Body() payload: CreateUserDto) {
-  //   const user = await this.usersService.create(payload);
-  //   return user;
-  // }
+  @Post()
+  async create(@Body() payload: CreateUserDto) {
+    const user = await this.usersService.create(payload);
+    return user;
+  }
 
   @Get()
   async findAll() {
@@ -26,9 +29,10 @@ export class UsersController {
     return users;
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const user = await this.usersService.findOne(id);
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async findProfile(@Request() req) {
+    const user = await this.usersService.findOne(req.user.id);
     return user;
   }
 

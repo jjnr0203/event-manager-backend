@@ -4,8 +4,6 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -72,7 +70,7 @@ export class EventEntity {
   })
   end_date: Date;
 
-  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
+  @ManyToOne(() => CatalogueEntity)
   @JoinColumn({
     name: 'status_id',
     foreignKeyConstraintName: 'event_status_id',
@@ -88,33 +86,33 @@ export class EventEntity {
 
   fileId: string;
 
-  @ManyToOne(() => CatalogueEntity, (category) => category.id)
+  @ManyToOne(() => CatalogueEntity)
   @JoinColumn({
     name: 'category_id',
     foreignKeyConstraintName: 'event_catalogue_id_foreign_key',
   })
   category: CatalogueEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.id)
+  @ManyToOne(() => UserEntity)
   @JoinColumn({
     name: 'organizer_id',
     foreignKeyConstraintName: 'event_user_id_foreign_key',
   })
   organizer: UserEntity;
 
-  @ManyToOne(() => AddressEntity, (address) => address.id)
+  @ManyToOne(() => AddressEntity)
   @JoinColumn({
     name: 'address_id',
     foreignKeyConstraintName: 'event_address_id_foreign_key',
   })
   address: AddressEntity;
 
-  @OneToMany(() => SponsorEntity, (sponsor) => sponsor.id)
+  @OneToMany(() => SponsorEntity, (sponsor) => sponsor.event)
   sponsors: SponsorEntity[];
 
-  @OneToMany(() => RegistrationEntity, (registration) => registration.id)
+  @OneToMany(() => RegistrationEntity, (registration) => registration.event)
   registrations: RegistrationEntity[];
 
-  @OneToMany(() => FeedbackEntity, (feedback) => feedback.id)
+  @OneToMany(() => FeedbackEntity, (feedback) => feedback.event)
   feedback: FeedbackEntity[];
 }

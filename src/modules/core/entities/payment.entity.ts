@@ -8,9 +8,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-  OneToOne,
 } from 'typeorm';
-import { TicketEntity } from './ticket.entity';
 import { TicketTypeEntity } from './ticket-type.entity';
 import { TransactionEntity } from './transaction.entity';
 import { CatalogueEntity } from './catalogue.entity';
@@ -53,7 +51,7 @@ export class PaymentEntity {
   })
   amount: number;
 
-  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
+  @ManyToOne(() => CatalogueEntity)
   @JoinColumn({
     name: 'state_id',
     foreignKeyConstraintName: 'payments_state_id',
@@ -75,22 +73,22 @@ export class PaymentEntity {
   })
   cuantity: number;
 
-  @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.id)
+  @ManyToOne(() => CatalogueEntity)
   @JoinColumn({
     name: 'payment_method_id',
     foreignKeyConstraintName: 'payments_payment_method_id',
   })
   paymentMethod: CatalogueEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.id)
+  @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: UserEntity;
 
-  @ManyToOne(() => TicketTypeEntity, (ticketType) => ticketType.id)
+  @ManyToOne(() => TicketTypeEntity)
   @JoinColumn({ name: 'ticket_type_id' })
   ticketType: TicketTypeEntity;
 
-  @ManyToOne(() => TransactionEntity, (transaction) => transaction.id)
+  @ManyToOne(() => TransactionEntity)
   @JoinColumn({ name: 'payment_transaction_id' })
   transaction: TransactionEntity;
 }

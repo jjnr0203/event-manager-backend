@@ -1,12 +1,9 @@
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
-import { FileEntity } from 'src/modules/core/entities/file.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';

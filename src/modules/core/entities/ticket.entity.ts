@@ -52,21 +52,21 @@ export class TicketEntity {
   })
   generatedDate: Date;
 
-  @ManyToOne(() => TicketTypeEntity, (type) => type.id)
+  @ManyToOne(() => TicketTypeEntity)
   @JoinColumn({
     name: 'ticket_type_id',
     foreignKeyConstraintName: 'ticket_ticket_type_id_fkey',
   })
   ticketType: TicketTypeEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.id)
+  @ManyToOne(() => UserEntity)
   @JoinColumn({
     name: 'user_id',
     foreignKeyConstraintName: 'ticket_user_id_fkey',
   })
   user: UserEntity;
-  
-  @ManyToOne(()=>EventEntity, (event)=> event.id)
+
+  @ManyToOne(() => EventEntity)
   @JoinColumn({
     name: 'event_id',
     foreignKeyConstraintName: 'ticket_event_id_fkey',
