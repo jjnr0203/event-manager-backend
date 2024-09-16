@@ -33,6 +33,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
   async handleRedirect(@Request() req, @Res() res) {
-    return res.json('Auth with google succesful')
+    const token = await this.authService.login(req.user.id)
+    return res.send({token})
   }
 }

@@ -34,8 +34,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       },
     });
 
-    const token = this.authService.login(user.id);
-    done(null,token)
-    // return user;
+    return user;
   }
 }

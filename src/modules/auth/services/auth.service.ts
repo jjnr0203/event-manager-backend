@@ -38,7 +38,6 @@ export class AuthService {
     const user = await this.repository.findOneBy({ email: googleUser.email });
 
     if (user) {
-      console.log(user, 'inside validate oauth');
       return user;
     }
     return await this.usersService.createUserFromGoogle(googleUser);
