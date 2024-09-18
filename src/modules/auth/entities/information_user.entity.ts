@@ -51,7 +51,7 @@ export class InformationUserEntity {
   phone: string;
 
 
-  @OneToOne(() => UserEntity, (users) => users.id)
+  @OneToOne(() => UserEntity, (users) => users.id, {cascade:true})
   user: UserEntity;
 
 }

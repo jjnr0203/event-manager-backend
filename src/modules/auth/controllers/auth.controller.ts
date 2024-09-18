@@ -21,7 +21,8 @@ export class AuthController {
   @Post('login')
   @UseGuards(LocalAuthGuard)
   async login(@Request() req) {  
-    return { token: await this.authService.login(req.user.id)}
+    const token = await this.authService.login(req.user.id)
+    return {token}
   }
 
   @Get('google/login')
@@ -34,6 +35,6 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   async handleRedirect(@Request() req, @Res() res) {
     const token = await this.authService.login(req.user.id)
-    return res.send({token})
+    return res.redirect('http://localhost:4200/auth/success/'+ token)
   }
 }
