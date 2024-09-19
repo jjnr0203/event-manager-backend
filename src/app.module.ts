@@ -24,7 +24,7 @@ import { config } from './config/config';
         JWT_SECRET: Joi.string().required(),
       }),
     }),
-    DatabaseModule,
+    // DatabaseModule,
     CoreModule,
     AuthModule,
   ],

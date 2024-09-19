@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateRoleDto{
-    @IsString()
+    @IsInt()
     @IsNotEmpty()
-    code:string;
+    code:number;
     
     @IsString()
     @IsNotEmpty()

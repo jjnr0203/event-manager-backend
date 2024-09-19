@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';
 import { authProviders } from './providers';
 import { GoogleStrategy, JwtStrategy } from './strategies';
@@ -19,6 +19,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { config } from 'src/config/config';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 
+@Global()
 @Module({
   imports: [
     DatabaseModule,
@@ -51,5 +52,9 @@ import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
     GoogleStrategy,
     JwtStrategy
   ],
+  exports:[
+    UsersService,
+    RolesService
+  ]
 })
 export class AuthModule {}

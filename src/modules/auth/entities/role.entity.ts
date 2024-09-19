@@ -40,11 +40,11 @@ export class RoleEntity {
   /** Columns **/
   @Column({
     name: 'code',
-    type: 'varchar',
+    type: 'integer',
     unique: true,
     comment: 'Codigo del rol',
   })
-  code: string;
+  code: number;
 
   @Column({
     name: 'name',
@@ -53,14 +53,5 @@ export class RoleEntity {
     comment: 'Nombre del rol',
   })
   name: string;
-
-  /** Before Actions **/
-  @BeforeInsert()
-  @BeforeUpdate()
-  async setCode() {
-    if (!this.code) {
-      return;
-    }
-    this.code = this.code.toLowerCase().trim();
-  }
+  
 }

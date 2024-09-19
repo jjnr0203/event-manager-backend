@@ -33,7 +33,7 @@ export class RolesService {
     return informationUser;
   }
 
-  async findByCode(id: string) {
+  async findByCode(id: number) {
     const informationUser = await this.repository.findOne({
       where: { code: id },
     });

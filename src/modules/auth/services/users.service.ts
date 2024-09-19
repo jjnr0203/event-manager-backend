@@ -17,7 +17,7 @@ export class UsersService {
   ) {}
 
   async create(payload: { [key: string]: any }) {
-    const role = await this.rolesService.findByCode('1');
+    const role = await this.rolesService.findByCode(1);
     const user = this.repository.create({
       ...payload,
       roles: [role],
