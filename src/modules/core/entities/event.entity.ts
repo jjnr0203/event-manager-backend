@@ -107,6 +107,13 @@ export class EventEntity {
   })
   address: AddressEntity;
 
+  @Column({
+    type:'boolean',
+    name:'hasSponsors',
+    nullable:false
+  })
+  hasSponsors:boolean
+
   @OneToMany(() => SponsorEntity, (sponsor) => sponsor.event)
   sponsors: SponsorEntity[];
 

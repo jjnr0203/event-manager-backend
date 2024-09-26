@@ -24,7 +24,7 @@ export class UsersController {
 
   @Post()
   async create(@Body() payload: CreateUserDto) {
-    const user = await this.usersService.create(payload);
+    const user = await this.usersService.createLocalUser(payload);
     const token = await this.authService.login(user.id)
     
     return {token};

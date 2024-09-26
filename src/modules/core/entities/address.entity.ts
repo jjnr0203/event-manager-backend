@@ -62,10 +62,10 @@ export class AddressEntity {
   reference: string;
 
   @Column({
-    name: 'mainStreet',
+    name: 'address',
     type: 'varchar',
     nullable: false,
   })
-  mainStreet: string;
+  address: string;
 
 }

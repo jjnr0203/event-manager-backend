@@ -15,6 +15,6 @@ export class CreateAddresDto {
 
     @IsString()
     @IsNotEmpty()
-    mainStreet: string;
+    address: string;
 
 }
