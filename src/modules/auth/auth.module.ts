@@ -16,24 +16,18 @@ import {
 } from './controllers';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
-import { config } from 'src/config/config';
-import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
+import { envs } from 'src/config/envs';
 
 @Global()
 @Module({
   imports: [
     DatabaseModule,
-    JwtModule.registerAsync({
-      inject: [config.KEY],
-      useFactory: (configService: ConfigType<typeof config>) => {
-        return {
-          secret: configService.jwt,
-          signOptions: {
-            expiresIn: '1h',
-          },
-        };
-      },
-    }),
+    JwtModule.register({
+      secret:envs.jwtSecret,
+      signOptions:{
+        expiresIn: '1h'
+      }
+    })
   ],
   controllers: [
     AuthController,

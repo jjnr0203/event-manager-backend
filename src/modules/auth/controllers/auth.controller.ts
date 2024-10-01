@@ -35,6 +35,6 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   async handleRedirect(@Request() req, @Res() res) {
     const token = await this.authService.login(req.user.id)
-    return res.redirect('http://localhost:4200/auth/success/'+ token)
+    return res.json('http://localhost:4200/auth/success/'+ token)
   }
 }
