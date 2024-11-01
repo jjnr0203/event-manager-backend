@@ -27,7 +27,7 @@ export class EventsService {
 
   async create(payload: CreateEventDto) {
     try {
-      const event = await this.repository.create(payload);
+      const event = this.repository.create(payload);
       await this.repository.save(event);
       return event;
     } catch (error) {

@@ -1,36 +1,35 @@
-import { IsNotEmpty, IsString, IsOptional, IsNumber } from "class-validator";
+import { IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator';
 
-export class CreateFileDto{
-    @IsNotEmpty()
-    @IsString()
-    name:string;
+export class CreateFileDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 
-    @IsNotEmpty()
-    @IsString()
-    url: string;
+  @IsNotEmpty()
+  @IsString()
+  url: string;
 
-    @IsNotEmpty()
-    @IsString()
-    publicId: string;
+  @IsNotEmpty()
+  @IsString()
+  publicId: string;
 
-    @IsNotEmpty()
-    @IsString()
-    resourceType: string;
+  @IsNotEmpty()
+  @IsString()
+  resourceType: string;
 
-    @IsNotEmpty()
-    @IsString()
-    format: string;
+  @IsNotEmpty()
+  @IsString()
+  format: string;
 
-    @IsOptional()
-    @IsNumber()
-    size: number;
-    
-    @IsOptional()
-    @IsNumber()
-    width: number;
+  @IsOptional()
+  @IsNumber()
+  size: number;
 
-    @IsOptional()
-    @IsNumber()
-    height: number;
+  @IsOptional()
+  @IsNumber()
+  width: number;
 
+  @IsOptional()
+  @IsNumber()
+  height: number;
 }

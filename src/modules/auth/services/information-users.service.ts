@@ -19,9 +19,7 @@ export class InformationUsersService {
   }
 
   async findAll() {
-    console.log('ejecutado service find all');
     const informationUsers = await this.repository.find();
-    console.log(informationUsers, 'service');
     return informationUsers;
   }
 

@@ -18,9 +18,7 @@ export class AddressesService {
     return address;
   }
   async findAll() {
-    console.log('ejecutado service find all');
     const addresses = await this.repository.find();
-    console.log(addresses);
     return addresses;
   }
   async findOne(id: string) {

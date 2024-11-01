@@ -12,6 +12,9 @@ const envsSchema = joi
     DB_PASSWORD: joi.string().required(),
     DB_USER: joi.string().required(),
     JWT_SECRET: joi.string().required(),
+    CLOUD_NAME:joi.string().required(),
+    CLOUDINARY_SECRET:joi.string().required(),
+    CLOUDINARY_KEY:joi.string().required(),
   })
   .unknown(true);
 
@@ -32,4 +35,9 @@ export const envs = {
     username: envVars.DB_USER,
   },
   jwtSecret: envVars.JWT_SECRET,
+  cloudinary:{
+    name:envVars.CLOUD_NAME,
+    cloudinarySecret:envVars.CLOUDINARY_SECRET,
+    cloudinaryKey:envVars.CLOUDINARY_KEY,    
+  }
 };

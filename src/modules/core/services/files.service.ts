@@ -1,12 +1,6 @@
-import {
-  Controller,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFileDto } from '../dto';
 import { UpdateFileDto } from '../dto';
-import { InformationUserEntity } from 'src/modules/auth/entities/information_user.entity';
 import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
 import { FileEntity } from '../entities/file.entity';
