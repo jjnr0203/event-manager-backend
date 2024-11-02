@@ -13,13 +13,14 @@ export class EventsService {
     private fileService: FilesService,
   ) {}
 
+  //todo: Validate saved images before saving the event
   async createEvent(
     files: Express.Multer.File[],
     createEventDto: CreateEventDto,
   ) {
     const event = this.repository.create(createEventDto);
     //todo saveEvent
-    const images = await this.fileService.create(files, 'eventId') 
+    const images = await this.fileService.create(files, 'eventId');
     return {
       images,
       event,

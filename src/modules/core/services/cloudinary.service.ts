@@ -23,7 +23,7 @@ export class CloudinaryService {
     }
   }
 
-  async uploadImage(file: Express.Multer.File) {
+  async uploadImage(file: Express.Multer.File):Promise<CloudinaryResponse> {
     this.validateFile(file);
     
     return new Promise((resolve, reject) => {

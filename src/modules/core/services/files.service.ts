@@ -13,31 +13,37 @@ export class FilesService {
     private cloudinaryService: CloudinaryService,
   ) {}
 
-  private async handleSaveError(uploadedImages:unknown[]){
+  private async handleSaveError(uploadedImages: CloudinaryResponse[]) {
     await Promise.all(
-      uploadedImages.map((image:FileEntity)=> this.cloudinaryService.deleteImage(image.publicId))
-    )
+      uploadedImages.map((image) =>
+        this.cloudinaryService.deleteImage(image.publicId),
+      ),
+    );
   }
 
-  async create(files: Express.Multer.File[], entityId: string):Promise<FileEntity[]> {
-    const images = await Promise.all(
+  async create(
+    files: Express.Multer.File[],
+    entityId: string,
+  ): Promise<FileEntity[]> {
+    const cloudinaryImages = await Promise.all(
       files.map(async (image) => {
         return await this.cloudinaryService.uploadImage(image);
       }),
     );
+
     try {
-      const newImages = await Promise.all(
-        images.map(async (image: CreateFileDto) => {
+      const images = await Promise.all(
+        cloudinaryImages.map(async (image: CloudinaryResponse) => {
           const newImage = this.repository.create({ ...image, entityId });
           await this.repository.save(newImage);
-  
+
           return newImage;
         }),
       );
-      return newImages;
+      return images;
     } catch (error) {
       console.error(error);
-      this.handleSaveError(images)
+      this.handleSaveError(cloudinaryImages);
     }
   }
 

@@ -32,14 +32,8 @@ export class EventsController {
     return event;
   }
 
-  @Post()
-  create(@Body() createEventDto: CreateEventDto) {
-    const event = this.eventsService.create(createEventDto);
-    return event;
-  }
-
   //todo: save imageUrl and return event
-  @Post('upload')
+  @Post('')
   @UseInterceptors(
     FilesInterceptor('images', 3, {
       limits: {
@@ -56,7 +50,7 @@ export class EventsController {
       },
     }),
   )
-  async createTest(
+  async create(
     @UploadedFiles(FilesValidationPipe)
     files: Express.Multer.File[],
     @Body() createEventDto: any,
