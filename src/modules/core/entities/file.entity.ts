@@ -15,14 +15,6 @@ export class FileEntity {
   id: string;
 
   @Column({
-    name: 'name',
-    type: 'varchar',
-    length: 255,
-    comment: 'Original name of the uploaded file',
-  })
-  name: string;
-
-  @Column({
     name: 'url',
     type: 'text',
     comment: 'URL to access the file stored on Cloudinary',
@@ -54,27 +46,6 @@ export class FileEntity {
   })
   format: string;
 
-  @Column({
-    name: 'size',
-    type: 'bigint',
-    comment: 'Size of the file in bytes',
-  })
-  size: number;
-
-  @Column({
-    type: 'int',
-    nullable: true,
-    comment: 'Width of the file (if applicable, e.g., for images or videos)',
-  })
-  width: number;
-
-  @Column({
-    type: 'int',
-    nullable: true,
-    comment: 'Height of the file (if applicable, e.g., for images or videos)',
-  })
-  height: number;
-
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
@@ -86,5 +57,5 @@ export class FileEntity {
     type:'varchar',
     nullable:false
   })
-  modelId:string;
+  entityId:string;
 }

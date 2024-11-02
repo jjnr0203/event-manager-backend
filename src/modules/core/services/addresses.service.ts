@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateAddresDto } from '../dto';
+import { CreateAddressDto } from '../dto';
 import { UpdateAddresDto } from '../dto';
 import { AddressEntity } from '../entities/address.entity';
 import { Repository } from 'typeorm';
@@ -12,7 +12,7 @@ export class AddressesService {
     private repository: Repository<AddressEntity>,
   ) {}
 
-  async create(payload: CreateAddresDto) {
+  async create(payload: CreateAddressDto) {
     const address = await this.repository.create(payload);
     await this.repository.save(address);
     return address;

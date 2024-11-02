@@ -3,26 +3,27 @@ import { CreateEventDto, UpdateEventDto } from '../dto';
 import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
 import { EventEntity } from '../entities/event.entity';
-import { CloudinaryService } from './cloudinary.service';
+import { FilesService } from './files.service';
 
 @Injectable()
 export class EventsService {
   constructor(
     @Inject(CoreRepositoryEnum.EVENT_REPOSITORY)
     private repository: Repository<EventEntity>,
-    private cloudinaryService: CloudinaryService,
+    private fileService: FilesService,
   ) {}
 
-  async createEvent(files: Express.Multer.File[], createEventDto: any) {
-    const images = await Promise.all(
-      files.map(async (image) => {
-        const uploadedImage = await this.cloudinaryService.uploadImage(image);
-        console.log(uploadedImage);
-        
-        return uploadedImage
-      }),
-    );
-    return images;
+  async createEvent(
+    files: Express.Multer.File[],
+    createEventDto: CreateEventDto,
+  ) {
+    const event = this.repository.create(createEventDto);
+    //todo saveEvent
+    const images = await this.fileService.create(files, 'eventId') 
+    return {
+      images,
+      event,
+    };
   }
 
   async findAll() {

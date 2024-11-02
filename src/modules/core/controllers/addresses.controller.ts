@@ -8,14 +8,14 @@ import {
   Post,
 } from '@nestjs/common';
 import { AddressesService } from '../services/addresses.service';
-import { CreateAddresDto, UpdateAddresDto } from '../dto';
+import { CreateAddressDto, UpdateAddresDto } from '../dto';
 
 @Controller('addresses')
 export class AddressesController {
   constructor(private readonly addressesService: AddressesService) {}
 
   @Post()
-  async create(@Body() payload: CreateAddresDto) {
+  async create(@Body() payload: CreateAddressDto) {
     const addresse = await this.addressesService.create(payload);
     return addresse;
   }

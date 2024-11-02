@@ -4,7 +4,7 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
-import { CloudinaryImageConfig } from 'src/config/cloudinary-config';
+import { CloudinaryImageConfig } from 'src/config/cloudinary-image-config';
 
 @Injectable()
 export class FilesValidationPipe implements PipeTransform {

@@ -13,7 +13,7 @@ import {
 import { CreateEventDto, UpdateEventDto } from '../dto';
 import { EventsService } from '../services/events.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { CloudinaryImageConfig } from 'src/config/cloudinary-config';
+import { CloudinaryImageConfig } from 'src/config/cloudinary-image-config';
 import { FilesValidationPipe } from 'src/shared/pipes/file.pipe';
 
 @Controller('events')
@@ -61,11 +61,8 @@ export class EventsController {
     files: Express.Multer.File[],
     @Body() createEventDto: any,
   ) {
-    const images = await this.eventsService.createEvent(files, createEventDto);
-    return {
-      images,
-      createEventDto,
-    };
+    const event = await this.eventsService.createEvent(files, createEventDto);
+    return event;
   }
 
   @Patch(':id')

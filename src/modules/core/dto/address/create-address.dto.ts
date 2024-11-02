@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsNumber } from "class-validator";
 
-export class CreateAddresDto {
+export class CreateAddressDto {
     @IsNumber()
     @IsNotEmpty()
     latitude: number;

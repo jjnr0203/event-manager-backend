@@ -30,6 +30,7 @@ import {
   TicketsService,
   TicketTypesService,
   TransactionsService,
+  FilesService,
 } from './services';
 
 @Module({
@@ -64,6 +65,7 @@ import {
     TicketTypesService,
     TicketsService,
     TransactionsService,
+    FilesService
   ],
 })
 export class CoreModule {}

@@ -1,9 +1,6 @@
-import { IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsNumber, IsDate } from 'class-validator';
 
 export class CreateFileDto {
-  @IsNotEmpty()
-  @IsString()
-  name: string;
 
   @IsNotEmpty()
   @IsString()
@@ -20,16 +17,13 @@ export class CreateFileDto {
   @IsNotEmpty()
   @IsString()
   format: string;
+  
+  @IsNotEmpty()
+  @IsDate()
+  createdAt: Date;
+  
+  @IsNotEmpty()
+  @IsString()
+  entityId: string;
 
-  @IsOptional()
-  @IsNumber()
-  size: number;
-
-  @IsOptional()
-  @IsNumber()
-  width: number;
-
-  @IsOptional()
-  @IsNumber()
-  height: number;
 }
