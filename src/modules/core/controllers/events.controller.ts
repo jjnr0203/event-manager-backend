@@ -51,6 +51,7 @@ export class EventsController {
     }),
   )
   async create(
+    //upload files decorator to extract files from request
     @UploadedFiles(FilesValidationPipe)
     files: Express.Multer.File[],
     @Body() createEventDto: any,

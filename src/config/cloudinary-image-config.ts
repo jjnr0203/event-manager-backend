@@ -1,3 +1,5 @@
+
+// centralizar configuraciones para carga de imágenes en cloudinary
 export const CloudinaryImageConfig = {
     maxWidth: 1920,
     maxHeight: 1080,

@@ -14,7 +14,7 @@ export class RolesSeeder {
     const roles: CreateRoleDto[] = [
       {
         code: 1,
-        name: 'PARICIPANT',
+        name: 'PARTICIPANT',
       },
       {
         code: 2,

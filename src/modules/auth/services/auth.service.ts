@@ -20,7 +20,7 @@ export class AuthService {
 
   async login(userId: string) {
     const payload = { sub: userId };
-    return  this.jwtService.sign(payload);
+    return this.jwtService.sign(payload);
   }
 
   async validateLocalUser(email: string, password: string) {

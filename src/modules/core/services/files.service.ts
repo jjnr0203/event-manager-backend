@@ -21,10 +21,7 @@ export class FilesService {
     );
   }
 
-  async create(
-    files: Express.Multer.File[],
-    entityId: string,
-  ): Promise<FileEntity[]> {
+  async create(files: Express.Multer.File[], entityId: string) {
     const cloudinaryImages = await Promise.all(
       files.map(async (image) => {
         return await this.cloudinaryService.uploadImage(image);
@@ -37,7 +34,7 @@ export class FilesService {
           const newImage = this.repository.create({ ...image, entityId });
           await this.repository.save(newImage);
 
-          return newImage;
+          return newImage.url;
         }),
       );
       return images;

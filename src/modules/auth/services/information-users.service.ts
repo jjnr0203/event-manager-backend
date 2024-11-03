@@ -29,6 +29,7 @@ export class InformationUsersService {
     });
     return informationUser;
   }
+  
   async update(id: string, payload: UpdateInformationUserDto) {
     const informationUser = await this.repository.preload({
       id: id,
@@ -45,6 +46,7 @@ export class InformationUsersService {
       return 'Error updating the user';
     }
   }
+
   async delete(id: string) {
     const informationUser = await this.repository.softDelete(id);
     return informationUser;
