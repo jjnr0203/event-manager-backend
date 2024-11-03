@@ -14,17 +14,8 @@ export class CloudinaryService {
     });
   }
 
-  private validateFile(file: Express.Multer.File) {
-    if (!CloudinaryImageConfig.allowedMimeTypes.includes(file.mimetype)) {
-      throw new BadRequestException('File type not allowed');
-    }
-    if (file.size > CloudinaryImageConfig.maxFileSize) {
-      throw new BadRequestException('File size exceeded');
-    }
-  }
 
   async uploadImage(file: Express.Multer.File):Promise<CloudinaryResponse> {
-    this.validateFile(file);
     
     return new Promise((resolve, reject) => {
       const upload = cloudinary.uploader.upload_stream(
