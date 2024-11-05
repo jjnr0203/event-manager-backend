@@ -25,15 +25,7 @@ export class UsersService {
     await this.repository.save(user);
     return user;
   }
-
-  async createLocalUser(payload: CreateUserDto) {
-    return await this.create(payload);
-  }
-
-  async createUserFromGoogle(payload: CreateUserFromGoogleDto) {
-    return await this.create(payload);
-  }
-
+  
   async findAll() {
     const users = await this.repository.find();
     return users;

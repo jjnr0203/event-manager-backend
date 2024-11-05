@@ -15,6 +15,7 @@ $ npm run start:dev
 ## Development using docker
 1. Firs time or in case of changes in dependencies  
 ```bash
+$ npm install
 $ docker compose --build
 ```
 2. Start services  

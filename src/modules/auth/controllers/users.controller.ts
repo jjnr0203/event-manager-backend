@@ -7,27 +7,22 @@ import {
   Patch,
   Post,
   Request,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UsersService } from '../services/users.service';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { AuthService } from '../services';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly authService: AuthService
   ) {}
 
   @Post()
-  async create(@Body() payload: CreateUserDto) {
-    const user = await this.usersService.createLocalUser(payload);
-    const token = await this.authService.login(user.id)
-    
-    return {token};
+  async create(@Body() createUserDto: CreateUserDto) {
+    const user = await this.usersService.create(createUserDto);
+    return user;
   }
 
   @Get()
