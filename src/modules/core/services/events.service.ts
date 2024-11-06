@@ -1,7 +1,15 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateEventDto, UpdateEventDto } from '../dto';
-import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
-import { Repository } from 'typeorm';
+import {
+  CoreRepositoryEnum,
+  DatabaseProviderEnum,
+} from 'src/shared/enums/repository.enum';
+import { DataSource, Repository } from 'typeorm';
 import { EventEntity } from '../entities/event.entity';
 import { FilesService } from './files.service';
 
@@ -9,22 +17,29 @@ import { FilesService } from './files.service';
 export class EventsService {
   constructor(
     @Inject(CoreRepositoryEnum.EVENT_REPOSITORY)
-    private repository: Repository<EventEntity>,
-    private fileService: FilesService,
+    private readonly repository: Repository<EventEntity>,
+    private readonly fileService: FilesService,
+    @Inject(DatabaseProviderEnum.POSTGRES)
+    private readonly dataSource: DataSource,
   ) {}
 
-  //todo: Validate saved images before saving the event
-  async createEvent(
-    files: Express.Multer.File[],
-    createEventDto: CreateEventDto,
-  ) {
-    const event = this.repository.create(createEventDto);
-    //todo saveEvent
-    const images = await this.fileService.create(files, 'eventId');
-    return {
-      images,
-      event,
-    };
+  async create(files: Express.Multer.File[], createEventDto: CreateEventDto) {
+    try {
+      const result = await this.dataSource.transaction(async (manager) => {
+        const event = this.repository.create(createEventDto);
+        const createdEvent = await manager.save(event);
+        const images = await this.fileService.create(files, createdEvent.id);
+
+        return {
+          event: createdEvent,
+          images,
+        };
+      });
+      return result;
+    } catch (error) {
+      console.log(error.message);
+      throw new BadRequestException('Error creating the event');
+    }
   }
 
   async findAll() {
@@ -41,17 +56,17 @@ export class EventsService {
     return event;
   }
 
-  async create(payload: CreateEventDto) {
-    try {
-      const event = this.repository.create(payload);
-      await this.repository.save(event);
-      return event;
-    } catch (error) {
-      console.log(error);
+  // async create(payload: CreateEventDto) {
+  //   try {
+  //     const event = this.repository.create(payload);
+  //     await this.repository.save(event);
+  //     return event;
+  //   } catch (error) {
+  //     console.log(error);
 
-      return 'Error creating the event';
-    }
-  }
+  //     return 'Error creating the event';
+  //   }
+  // }
 
   async update(id: string, payload: UpdateEventDto) {
     const event = await this.repository.preload({ id, ...payload });

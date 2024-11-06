@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryImageConfig } from 'src/config/cloudinary-image-config';
 import { envs } from 'src/config/envs';

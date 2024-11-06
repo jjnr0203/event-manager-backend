@@ -10,11 +10,11 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateEventDto, UpdateEventDto } from '../dto';
 import { EventsService } from '../services/events.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { CloudinaryImageConfig } from 'src/config/cloudinary-image-config';
 import { FilesValidationPipe } from 'src/shared/pipes/file.pipe';
+import { CreateEventDto, UpdateEventDto } from '../dto';
 
 @Controller('events')
 export class EventsController {
@@ -32,7 +32,6 @@ export class EventsController {
     return event;
   }
 
-  //todo: save imageUrl and return event
   @Post('')
   @UseInterceptors(
     FilesInterceptor('images', 3, {
@@ -53,9 +52,9 @@ export class EventsController {
   async create(
     @UploadedFiles(FilesValidationPipe)
     files: Express.Multer.File[],
-    @Body() createEventDto: any,
+    @Body() createEventDto: CreateEventDto,
   ) {
-    const event = await this.eventsService.createEvent(files, createEventDto);
+    const event = await this.eventsService.create(files, createEventDto);
     return event;
   }
 

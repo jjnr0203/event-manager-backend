@@ -1,8 +1,7 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString} from 'class-validator';
 import { CreateSponsorDto } from '../sponsor/create-sponsor.dto';
 import { CatalogueEntity } from '../../entities/catalogue.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
-import { CreateFileDto } from '../file/create-file.dto';
 import { CreateAddressDto } from '../address/create-address.dto';
 
 export class CreateEventDto {
@@ -10,35 +9,35 @@ export class CreateEventDto {
   @IsString()
   name: string;
 
-  // @IsNotEmpty()
-  // @IsString()
-  // description: string;
+  @IsNotEmpty()
+  @IsString()
+  description: string;
 
-  // @IsNotEmpty()
-  // @IsDate()
-  // start_date: Date;
+  @IsNotEmpty()
+  @IsDate()
+  start_date: Date;
 
-  // @IsNotEmpty()
-  // @IsDate()
-  // end_date: Date;
+  @IsNotEmpty()
+  @IsDate()
+  end_date: Date;
 
-  // @IsNotEmpty()
-  // status: CatalogueEntity;
+  @IsNotEmpty()
+  status: CatalogueEntity;
 
-  // @IsNotEmpty()
-  // @IsBoolean()
-  // isPublic: boolean;
+  @IsNotEmpty()
+  @IsBoolean()
+  isPublic: boolean;
 
-  // @IsNotEmpty()
-  // category: CatalogueEntity;
+  @IsNotEmpty()
+  category: CatalogueEntity;
 
-  // @IsNotEmpty()
-  // organizer: UserEntity;
+  @IsNotEmpty()
+  organizer: UserEntity;
 
-  // @IsNotEmpty()
-  // address: CreateAddressDto;
+  @IsNotEmpty()
+  address: CreateAddressDto;
   
-  // @IsOptional()
-  // sponsors?: CreateSponsorDto[];
+  @IsOptional()
+  sponsors?: CreateSponsorDto[];
   
 }

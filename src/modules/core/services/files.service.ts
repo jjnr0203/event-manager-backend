@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCatalogueDto, CreateFileDto, UpdateCatalogueDto } from '../dto';
+import { UpdateCatalogueDto } from '../dto';
 import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
 import { FileEntity } from '../entities/file.entity';
@@ -9,8 +9,8 @@ import { CloudinaryService } from './cloudinary.service';
 export class FilesService {
   constructor(
     @Inject(CoreRepositoryEnum.FILE_REPOSITORY)
-    private repository: Repository<FileEntity>,
-    private cloudinaryService: CloudinaryService,
+    private readonly repository: Repository<FileEntity>,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   private async handleSaveError(uploadedImages: CloudinaryResponse[]) {

@@ -1,4 +1,4 @@
-import { Controller, Inject, Injectable } from '@nestjs/common';
+import {  Inject, Injectable } from '@nestjs/common';
 import { TransactionEntity } from '../entities/transaction.entity';
 import { CreateTransactionDto } from '../dto';
 import { CoreRepositoryEnum } from 'src/shared/enums/repository.enum';
@@ -8,11 +8,11 @@ import { Repository } from 'typeorm';
 export class TransactionsService {
   constructor(
     @Inject(CoreRepositoryEnum.TRANSACTION_REPOSITORY)
-    private repository: Repository<TransactionEntity>,
+    private readonly repository: Repository<TransactionEntity>,
   ) {}
 
   async create(payload: CreateTransactionDto) {
-    const transaction = await this.repository.create(payload);
+    const transaction = this.repository.create(payload);
     await this.repository.save(transaction);
     return transaction;
   }

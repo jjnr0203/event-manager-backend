@@ -1,18 +1,12 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
-  Patch,
-  Post,
 } from '@nestjs/common';
-import { CreateFileDto, UpdateFileDto } from '../dto';
-import { CloudinaryService } from '../services';
+import { FilesService } from '../services';
 
 @Controller('files')
 export class FilesController {
-  constructor(private readonly filesService: CloudinaryService) {}
+  constructor(private readonly filesService: FilesService) {}
 
   // @Post()
   // async create(@Body() payload: CreateFileDto) {
@@ -20,11 +14,11 @@ export class FilesController {
   //   return file;
   // }
 
-  // @Get()
-  // async findAll() {
-  //   const files = await this.filesService.findAll();
-  //   return files;
-  // }
+  @Get()
+  async findAll() {
+    const files = await this.filesService.findAll();
+    return files;
+  }
 
   // @Get(':id')
   // async findOne(@Param('id') id: string) {

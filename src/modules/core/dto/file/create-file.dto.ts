@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsOptional, IsNumber, IsDate } from 'class-validator';
+import { IsNotEmpty, IsString, IsDate } from 'class-validator';
 
 export class CreateFileDto {
 
