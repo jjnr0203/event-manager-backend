@@ -45,28 +45,28 @@ export class EventEntity {
   @Column({
     type: 'varchar',
     name: 'name',
-    nullable: true,
+    nullable: false,
   })
   name: string;
 
   @Column({
     type: 'varchar',
     name: 'description',
-    nullable: true,
+    nullable: false,
   })
   description: string;
 
   @Column({
     type: 'timestamp',
     name: 'start_date',
-    nullable: true,
+    nullable: false,
   })
   start_date: Date;
 
   @Column({
     type: 'timestamp',
     name: 'end_date',
-    nullable: true,
+    nullable: false,
   })
   end_date: Date;
 
@@ -80,7 +80,7 @@ export class EventEntity {
   @Column({
     type: 'boolean',
     name: 'is_public',
-    nullable: true,
+    nullable: false,
   })
   isPublic: boolean;
 
@@ -110,7 +110,7 @@ export class EventEntity {
   @Column({
     type:'boolean',
     name:'hasSponsors',
-    nullable: true
+    nullable: false
   })
   hasSponsors:boolean
 
