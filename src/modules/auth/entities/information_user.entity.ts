@@ -14,6 +14,7 @@ export class InformationUserEntity {
   id: string;
 
   @CreateDateColumn({
+    select:false,
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
@@ -22,6 +23,7 @@ export class InformationUserEntity {
   createdAt: Date;
 
   @DeleteDateColumn({
+    select:false,
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,

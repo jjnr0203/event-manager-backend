@@ -5,10 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  BeforeInsert,
-  BeforeUpdate,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
 
 @Entity('roles', { schema: 'auth' })
@@ -17,6 +13,7 @@ export class RoleEntity {
   id: string;
 
   @CreateDateColumn({
+    select:false,
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
@@ -24,13 +21,15 @@ export class RoleEntity {
   createdAt: Date;
 
   @UpdateDateColumn({
+    select:false,
     name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
-  })
+  } )
   updatedAt: Date;
 
   @DeleteDateColumn({
+    select:false,
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true,

@@ -3,8 +3,6 @@ import { AuthRepositoryEnum } from 'src/shared/enums/repository.enum';
 import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UserEntity } from '../entities/user.entity';
-import { InformationUserEntity } from '../entities/information_user.entity';
-import { InformationUsersService } from './information-users.service';
 import { CreateUserFromGoogleDto } from '../dto/user/create-google-user.dto';
 import { RolesService } from './roles.service';
 
@@ -12,11 +10,11 @@ import { RolesService } from './roles.service';
 export class UsersService {
   constructor(
     @Inject(AuthRepositoryEnum.USER_REPOSITORY)
-    private repository: Repository<UserEntity>,
-    private rolesService: RolesService,
+    private readonly repository: Repository<UserEntity>,
+    private readonly rolesService: RolesService,
   ) {}
 
-  async create(payload: { [key: string]: any }) {
+  async create(payload: CreateUserDto|CreateUserFromGoogleDto) {
     const role = await this.rolesService.findByCode(1);
     const user = this.repository.create({
       ...payload,
@@ -27,7 +25,13 @@ export class UsersService {
   }
   
   async findAll() {
-    const users = await this.repository.find();
+    const users = await this.repository.find({
+      select: ['id', 'email'],
+      relations: {
+        roles: true,
+        informationUser: true
+      }
+    });
     return users;
   }
 
@@ -45,6 +49,7 @@ export class UsersService {
       where: { email},
       relations: {
         roles: true,
+        informationUser: true
       },
     });
     return user;

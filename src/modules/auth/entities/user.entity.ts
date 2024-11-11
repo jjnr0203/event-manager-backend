@@ -22,6 +22,7 @@ export class UserEntity {
   id: string;
 
   @CreateDateColumn({
+    select: false,
     name: 'created_at',
     type: 'timestamp',
     comment: 'Fecha de creación',
@@ -30,6 +31,7 @@ export class UserEntity {
   createdAt: Date;
 
   @DeleteDateColumn({
+    select: false,
     name: 'deleted_at',
     type: 'timestamp',
     comment: 'Registro de borrado',
@@ -37,6 +39,7 @@ export class UserEntity {
   deletedAt: Date;
 
   @UpdateDateColumn({
+    select: false,
     name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',

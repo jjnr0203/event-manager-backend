@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -9,6 +10,7 @@ import {
 import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { AuthService } from '../services';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { CreateUserDto } from '../dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,16 +18,16 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  async login(@Request() req) {  
-    const token = await this.authService.login(req.user.id)
-    return {token}
+  async login(@Request() req) {
+    const token = await this.authService.login(req.user.id);
+    return { token, user: req.user };
   }
 
   @Post('register')
-  @UseGuards(LocalAuthGuard)
-  async register(@Request() req) {  
-    const token = await this.authService.registerLocalUser(req.user.id)
-    return {token}
+  async register(@Body() createUserDto: CreateUserDto) {
+    const user = await this.authService.registerLocalUser(createUserDto);
+    const token = await this.authService.login(user.id);
+    return { token, user };
   }
 
   @Get('google/login')
@@ -37,7 +39,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
   async handleRedirect(@Request() req, @Res() res) {
-    const token = await this.authService.login(req.user.id)
-    return res.redirect('http://localhost:4200/auth/success/'+ token)
+    const token = await this.authService.login(req.user.id);
+    return res.redirect('http://localhost:4200/auth/success/' + token);
   }
 }

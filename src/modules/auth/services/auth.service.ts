@@ -22,14 +22,15 @@ export class AuthService {
     return  this.jwtService.sign(payload);
   }
 
-  async validateLocalUser(email: string, password: string) {
+  async validateLocalUser(email: string, receivedPassword: string) {
     const user = await this.usersService.findOneByEmail(email);
     if (!user) throw new UnauthorizedException('Invalid credentials');
-    const isPasswordMatch = await compare(password, user.password);
+    const isPasswordMatch = await compare(receivedPassword, user.password);
     if (!isPasswordMatch)
       throw new UnauthorizedException('Invalid credentials');
+    const {password, ...rest} = user
     return {
-      id: user.id,
+      user: rest
     };
   }
 
