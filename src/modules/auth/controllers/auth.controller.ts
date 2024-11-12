@@ -11,6 +11,7 @@ import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { AuthService } from '../services';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { CreateUserDto } from '../dto';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -19,6 +20,7 @@ export class AuthController {
   @Post('login')
   @UseGuards(LocalAuthGuard)
   async login(@Request() req) {
+    
     const token = await this.authService.login(req.user.id);
     return { token, user: req.user };
   }
@@ -26,6 +28,15 @@ export class AuthController {
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.registerLocalUser(createUserDto);
+    const token = await this.authService.login(user.id);
+
+    return { token, user };
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('validate-token')
+  async validateToken(@Request() req) {
+    const user = req.user;    
     const token = await this.authService.login(user.id);
     return { token, user };
   }

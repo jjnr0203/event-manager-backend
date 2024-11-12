@@ -21,7 +21,8 @@ export class UsersService {
       roles: [role],
     });
     await this.repository.save(user);
-    return user;
+    const { password, ...result } = user;
+    return result;
   }
   
   async findAll() {
@@ -36,8 +37,9 @@ export class UsersService {
   }
 
   async findOne(id: string) {
+    if (!id) throw new NotFoundException('User not found');
     const user = await this.repository.findOne({
-      where: {id},
+      where: {id:id},
       select:['id','email'],
       relations:{roles:true, informationUser:true }
     });
@@ -46,12 +48,13 @@ export class UsersService {
   
   async findOneByEmail(email: string) {
     const user = await this.repository.findOne({
-      where: { email},
+      where: { email: email },
       relations: {
         roles: true,
         informationUser: true
       },
     });
+    if(!user) throw new NotFoundException('User not found');
     return user;
   }
 

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dto';
 import { UsersService } from '../services/users.service';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -31,9 +31,9 @@ export class UsersController {
     return users;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard)
   @Get('profile')
-  async findProfile(@Request() req) {
+  async findProfile(@Request() req) { 
     const user = await this.usersService.findOne(req.user.id);
     return user;
   }

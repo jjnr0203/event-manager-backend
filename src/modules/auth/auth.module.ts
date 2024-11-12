@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';
 import { authProviders } from './providers';
-import { GoogleStrategy, JwtStrategy } from './strategies';
+import { GoogleStrategy } from './strategies';
 import {
   AuthService,
   InformationUsersService,
@@ -44,7 +44,6 @@ import { envs } from 'src/config/envs';
     AuthService,
     LocalStrategy,
     GoogleStrategy,
-    JwtStrategy
   ],
   exports:[
     UsersService,
