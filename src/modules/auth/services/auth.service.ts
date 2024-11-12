@@ -7,6 +7,7 @@ import { CreateUserFromGoogleDto } from '../dto/user/create-google-user.dto';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../dto';
+import { JwtPayload } from '../interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -17,9 +18,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(userId: string) {
-    const payload = { sub: userId };
-    return  this.jwtService.sign(payload);
+  async login(id: string) {
+    const payload:JwtPayload = { id };
+    return this.jwtService.sign(payload);
   }
 
   async validateLocalUser(email: string, receivedPassword: string) {
@@ -29,9 +30,7 @@ export class AuthService {
     if (!isPasswordMatch)
       throw new UnauthorizedException('Invalid credentials');
     const {password, ...rest} = user
-    return {
-      user: rest
-    };
+    return rest;
   }
 
   async validateOAuthUser(googleUser: CreateUserFromGoogleDto) {

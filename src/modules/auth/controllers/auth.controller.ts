@@ -12,6 +12,7 @@ import { AuthService } from '../services';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { CreateUserDto } from '../dto';
 import { AuthGuard } from '../guards/auth.guard';
+import { UserEntity } from '../entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -19,10 +20,11 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  async login(@Request() req) {
+  async login(@Request() req:Request) {
+    const user = req['user']; 
     
-    const token = await this.authService.login(req.user.id);
-    return { token, user: req.user };
+    const token = await this.authService.login(user.id);
+    return { token, user: user };
   }
 
   @Post('register')
@@ -35,8 +37,8 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Get('validate-token')
-  async validateToken(@Request() req) {
-    const user = req.user;    
+  async validateToken(@Request() req:Request) {
+    const user = req['user'];    
     const token = await this.authService.login(user.id);
     return { token, user };
   }
