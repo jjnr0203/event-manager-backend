@@ -1,11 +1,9 @@
-import { InformationUserEntity } from 'src/modules/auth/entities/information_user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
 } from 'typeorm';
-import { EventEntity } from './event.entity';
 
 @Entity('files', { schema: 'core' })
 export class FileEntity {
