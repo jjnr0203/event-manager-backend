@@ -54,7 +54,7 @@ export class UsersService {
         informationUser: true
       },
     });
-    if(!user) throw new NotFoundException('User not found');
+    if(!user) throw new NotFoundException('Invalid credentials');
     return user;
   }
 
@@ -63,7 +63,7 @@ export class UsersService {
       id: id,
       ...payload,
     });
-    if (!user) throw new NotFoundException('Information user not found');
+    if (!user) throw new NotFoundException('user not found');
     try {
       await this.repository.save(user);
       return user;
