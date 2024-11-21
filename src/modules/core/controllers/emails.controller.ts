@@ -1,26 +1,28 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
-import { EmailsService } from '../services';
-import { UpdateNotificationDto } from '../dto';
+import { Controller, Delete, Get, Inject, Post } from '@nestjs/common';
+import { TokenInjectionEnum } from 'src/shared/enums/token-injection.enum';
+import { ClientProxy } from '@nestjs/microservices';
+import { catchError } from 'rxjs';
 
 @Controller('emails')
 export class EmailsController {
-  constructor(private readonly notificationsService: EmailsService) {}
+  constructor(
+    @Inject(TokenInjectionEnum.EMAIL_SERVICE)
+    private readonly emailClient: ClientProxy,
+  ) {}
+
   @Get()
-  findAll() {
-    return 'This action returns all notifications';
+  async findAll() {
+    return this.emailClient.send('findAllEmails', {}).pipe(
+      catchError((error) => {
+        console.log(error);
+        return error;
+      }),
+    );
   }
 
   @Get(':id')
   findOne() {
-    return 'should return an notification';
+    return this.emailClient.send('findOneEmail', {});
   }
 
   @Post()
@@ -28,13 +30,13 @@ export class EmailsController {
     return 'should return a created notification';
   }
 
-  @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateNotificationDto: UpdateNotificationDto,
-  ) {
-    return await this.notificationsService.update(id, updateNotificationDto);
-  }
+  // @Patch(':id')
+  // async update(
+  //   @Param('id') id: string,
+  //   @Body() updateNotificationDto: UpdateNotificationDto,
+  // ) {
+  //   return await this.notificationsService.update(id, updateNotificationDto);
+  // }
 
   @Delete(':id')
   delete() {

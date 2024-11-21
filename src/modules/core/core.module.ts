@@ -3,6 +3,7 @@ import { coreProviders } from './providers';
 import { DatabaseModule } from 'src/database/database.module';
 import { EventsService } from './services/events.service';
 import { CataloguesService } from './services/catalogues.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import {
   AddressesController,
   CataloguesController,
@@ -32,9 +33,9 @@ import {
   TransactionsService,
   FilesService,
 } from './services';
+import { TokenInjectionEnum } from 'src/shared/enums/token-injection.enum';
 
 @Module({
-  imports: [DatabaseModule],
   controllers: [
     AddressesController,
     CataloguesController,
@@ -65,7 +66,17 @@ import {
     TicketTypesService,
     TicketsService,
     TransactionsService,
-    FilesService
+    FilesService,
+  ],
+  imports: [
+    DatabaseModule,
+    ClientsModule.register([
+      {
+        name: TokenInjectionEnum.EMAIL_SERVICE,
+        transport: Transport.TCP,
+        options: { port: 3001, host:'localhost' },
+      },
+    ]),
   ],
 })
 export class CoreModule {}
