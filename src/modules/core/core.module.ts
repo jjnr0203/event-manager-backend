@@ -6,10 +6,8 @@ import { CataloguesService } from './services/catalogues.service';
 import {
   AddressesController,
   CataloguesController,
-  CollaboratorsController,
   EventsController,
   EmailsController,
-  FeedbacksController,
   FilesController,
   PaymentsController,
   RegistrationsController,
@@ -20,8 +18,6 @@ import {
 } from './controllers';
 import {
   AddressesService,
-  CollaboratorsService,
-  FeedbacksService,
   CloudinaryService,
   EmailsService,
   PaymentsService,
@@ -38,9 +34,7 @@ import {
   controllers: [
     AddressesController,
     CataloguesController,
-    CollaboratorsController,
     EventsController,
-    FeedbacksController,
     FilesController,
     EmailsController,
     PaymentsController,
@@ -54,9 +48,7 @@ import {
     ...coreProviders,
     AddressesService,
     CataloguesService,
-    CollaboratorsService,
     EventsService,
-    FeedbacksService,
     CloudinaryService,
     EmailsService,
     PaymentsService,

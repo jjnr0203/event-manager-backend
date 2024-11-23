@@ -10,7 +10,6 @@ import {
 } from 'typeorm';
 import { EventEntity } from './event.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
-import { CollaboratorEntity } from './collaborator.entity';
 
 @Entity('registrations', { schema: 'core' })
 export class RegistrationEntity {

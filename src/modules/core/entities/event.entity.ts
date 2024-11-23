@@ -11,10 +11,10 @@ import {
 } from 'typeorm';
 import { CatalogueEntity } from './catalogue.entity';
 import { SponsorEntity } from './sponsor.entity';
-import { FeedbackEntity } from './feedback.entity';
 import { RegistrationEntity } from './registration.entity';
 import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import { AddressEntity } from './address.entity';
+import { TicketTypeEntity } from './ticket-type.entity';
 
 @Entity('events', { schema: 'core' })
 export class EventEntity {
@@ -108,11 +108,11 @@ export class EventEntity {
   address: AddressEntity;
 
   @Column({
-    type:'boolean',
-    name:'hasSponsors',
-    nullable: false
+    type: 'boolean',
+    name: 'hasSponsors',
+    nullable: true,
   })
-  hasSponsors:boolean
+  hasSponsors: boolean;
 
   @OneToMany(() => SponsorEntity, (sponsor) => sponsor.event)
   sponsors: SponsorEntity[];
@@ -120,6 +120,7 @@ export class EventEntity {
   @OneToMany(() => RegistrationEntity, (registration) => registration.event)
   registrations: RegistrationEntity[];
 
-  @OneToMany(() => FeedbackEntity, (feedback) => feedback.event)
-  feedback: FeedbackEntity[];
+  @OneToMany(() => TicketTypeEntity, (ticket_type) => ticket_type.event)
+  ticket_types: TicketTypeEntity[];
+
 }

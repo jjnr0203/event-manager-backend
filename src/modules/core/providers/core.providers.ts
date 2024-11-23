@@ -3,10 +3,8 @@ import {
   DatabaseProviderEnum,
 } from 'src/shared/enums/repository.enum';
 import { DataSource } from 'typeorm';
-import { FeedbackEntity } from '../entities/feedback.entity';
 import { CatalogueEntity } from '../entities/catalogue.entity';
 import { AddressEntity } from '../entities/address.entity';
-import { CollaboratorEntity } from '../entities/collaborator.entity';
 import { EventEntity } from '../entities/event.entity';
 import { FileEntity } from '../entities/file.entity';
 import { PaymentEntity } from '../entities/payment.entity';
@@ -19,12 +17,6 @@ import { TicketEntity } from '../entities/ticket.entity';
 
 export const coreProviders = [
   {
-    provide: CoreRepositoryEnum.FEEDBACK_REPOSITORY,
-    useFactory: (dataSource: DataSource) =>
-      dataSource.getRepository(FeedbackEntity),
-    inject: [DatabaseProviderEnum.POSTGRES],
-  },
-  {
     provide: CoreRepositoryEnum.CATALOGUE_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(CatalogueEntity),
@@ -34,12 +26,6 @@ export const coreProviders = [
     provide: CoreRepositoryEnum.ADDRESS_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(AddressEntity),
-    inject: [DatabaseProviderEnum.POSTGRES],
-  },
-  {
-    provide: CoreRepositoryEnum.COLLABORATOR_REPOSITORY,
-    useFactory: (dataSource: DataSource) =>
-      dataSource.getRepository(CollaboratorEntity),
     inject: [DatabaseProviderEnum.POSTGRES],
   },
   {
