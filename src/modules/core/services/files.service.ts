@@ -20,7 +20,12 @@ export class FilesService {
       ),
     );
   }
-
+  async findByEvent(id: string) {
+    const images = await this.repository.find({
+      where: {entityId: id },
+    });
+    return images;
+  }
   async create(
     files: Express.Multer.File[],
     entityId: string,

@@ -7,7 +7,7 @@ export class CreateAddressDto {
 
     @IsNumber()
     @IsNotEmpty()
-    altitude: number;
+    longitude: number;
 
     @IsString()
     @IsNotEmpty()
@@ -16,5 +16,4 @@ export class CreateAddressDto {
     @IsString()
     @IsNotEmpty()
     address: string;
-
 }

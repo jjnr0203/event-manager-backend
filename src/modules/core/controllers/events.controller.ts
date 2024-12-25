@@ -15,6 +15,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { CloudinaryImageConfig } from 'src/config/cloudinary-image-config';
 import { FilesValidationPipe } from 'src/shared/pipes/file.pipe';
 import { CreateEventDto, UpdateEventDto } from '../dto';
+import { ParseJsonPipe } from 'src/shared/pipes/json.pipe';
 
 @Controller('events')
 export class EventsController {
@@ -52,12 +53,14 @@ export class EventsController {
   async create(
     @UploadedFiles(FilesValidationPipe)
     files: Express.Multer.File[],
-    @Body() createEventDto: CreateEventDto,
+    @Body('event', ParseJsonPipe) createEventDto: any,
   ) {
+    console.log(createEventDto);
+    
     const event = await this.eventsService.create(files, createEventDto);
     return event;
   }
-
+ 
   @Patch(':id')
   async update(
     @Param('id') id: string,

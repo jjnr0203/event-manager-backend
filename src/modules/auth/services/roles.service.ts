@@ -58,4 +58,9 @@ export class RolesService {
     return informationUser;
   }
 
+  async insertMany(payload: CreateRoleDto[]) {
+    const roles = this.repository.save(payload);
+    return roles;
+  }
+
 }

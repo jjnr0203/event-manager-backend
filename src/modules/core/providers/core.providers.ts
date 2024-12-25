@@ -7,11 +7,8 @@ import { CatalogueEntity } from '../entities/catalogue.entity';
 import { AddressEntity } from '../entities/address.entity';
 import { EventEntity } from '../entities/event.entity';
 import { FileEntity } from '../entities/file.entity';
-import { PaymentEntity } from '../entities/payment.entity';
 import { SponsorEntity } from '../entities/sponsor.entity';
-import { EmailEntity } from '../entities/email.entity';
 import { TicketTypeEntity } from '../entities/ticket-type.entity';
-import { TransactionEntity } from '../entities/transaction.entity';
 import { RegistrationEntity } from '../entities/registration.entity';
 import { TicketEntity } from '../entities/ticket.entity';
 
@@ -41,18 +38,6 @@ export const coreProviders = [
     inject: [DatabaseProviderEnum.POSTGRES],
   },
   {
-    provide: CoreRepositoryEnum.NOTIFICATION_REPOSITORY,
-    useFactory: (dataSource: DataSource) =>
-      dataSource.getRepository(EmailEntity),
-    inject: [DatabaseProviderEnum.POSTGRES],
-  },
-  {
-    provide: CoreRepositoryEnum.PAYMENT_REPOSITORY,
-    useFactory: (dataSource: DataSource) =>
-      dataSource.getRepository(PaymentEntity),
-    inject: [DatabaseProviderEnum.POSTGRES],
-  },
-  {
     provide: CoreRepositoryEnum.SPONSOR_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(SponsorEntity),
@@ -68,12 +53,6 @@ export const coreProviders = [
     provide: CoreRepositoryEnum.REGISTRATION_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(RegistrationEntity),
-    inject: [DatabaseProviderEnum.POSTGRES],
-  },
-  {
-    provide: CoreRepositoryEnum.TRANSACTION_REPOSITORY,
-    useFactory: (dataSource: DataSource) =>
-      dataSource.getRepository(TransactionEntity),
     inject: [DatabaseProviderEnum.POSTGRES],
   },
   {

@@ -22,7 +22,6 @@ export * from './notification/update-notification.dto'
 export * from './sponsor/create-sponsor.dto'
 export * from './sponsor/update-sponsor.dto'
 
-export * from './transaction/create-transaction.dto'
 
 
 

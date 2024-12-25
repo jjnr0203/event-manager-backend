@@ -14,7 +14,6 @@ import {
   RolesController,
   UsersController,
 } from './controllers';
-import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { envs } from 'src/config/envs';
 
@@ -42,7 +41,6 @@ import { envs } from 'src/config/envs';
     RolesService,
     UsersService,
     AuthService,
-    LocalStrategy,
     GoogleStrategy,
   ],
   exports:[

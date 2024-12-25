@@ -1,14 +1,10 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
-  Param,
-  Patch,
   Post,
 } from '@nestjs/common';
 import { PaymentsService } from '../services';
-import { UpdatePaymentDto } from '../dto/payment/update-payment.dto';
 
 @Controller('payments')
 export class PaymentsController {

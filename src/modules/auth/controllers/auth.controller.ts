@@ -9,37 +9,34 @@ import {
 } from '@nestjs/common';
 import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { AuthService } from '../services';
-import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { CreateUserDto } from '../dto';
 import { AuthGuard } from '../guards/auth.guard';
-import { UserEntity } from '../entities/user.entity';
+import { LoginDto } from '../dto/user/login.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  @UseGuards(LocalAuthGuard)
-  async login(@Request() req:Request) {
-    const user = req['user']; 
-    
-    const token = await this.authService.login(user.id);
-    return { token, user: user };
+  async login(@Body() loginDto: LoginDto) {
+    const user = await this.authService.login(loginDto);
+    const token = await this.authService.generateJwt(user.id);
+    return { user, token };
   }
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.registerLocalUser(createUserDto);
-    const token = await this.authService.login(user.id);
+    const token = await this.authService.generateJwt(user.id);
 
     return { token, user };
   }
 
   @UseGuards(AuthGuard)
   @Get('validate-token')
-  async validateToken(@Request() req:Request) {
-    const user = req['user'];    
-    const token = await this.authService.login(user.id);
+  async validateToken(@Request() req: Request) {
+    const user = req['user'];
+    const token = await this.authService.generateJwt(user.id);
     return { token, user };
   }
 

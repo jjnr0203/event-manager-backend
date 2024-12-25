@@ -12,16 +12,17 @@ import {
 import { CatalogueEntity } from './catalogue.entity';
 import { SponsorEntity } from './sponsor.entity';
 import { RegistrationEntity } from './registration.entity';
-import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import { AddressEntity } from './address.entity';
 import { TicketTypeEntity } from './ticket-type.entity';
 
-@Entity('events', { schema: 'core' })
+
+@Entity('events', {schema: 'core'})
 export class EventEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @CreateDateColumn({
+    select:false,
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
@@ -61,21 +62,21 @@ export class EventEntity {
     name: 'start_date',
     nullable: false,
   })
-  start_date: Date;
+  startDate: Date;
 
   @Column({
     type: 'timestamp',
     name: 'end_date',
     nullable: false,
   })
-  end_date: Date;
+  endDate: Date;
 
-  @ManyToOne(() => CatalogueEntity)
-  @JoinColumn({
-    name: 'status_id',
-    foreignKeyConstraintName: 'event_status_id',
+  @Column({
+    name: 'status',
+    type: 'varchar',
+    enum: ['PROGRESS', 'FINISHED', 'COMING'],
   })
-  status: CatalogueEntity;
+  state: string;
 
   @Column({
     type: 'boolean',
@@ -84,8 +85,6 @@ export class EventEntity {
   })
   isPublic: boolean;
 
-  fileId: string;
-
   @ManyToOne(() => CatalogueEntity)
   @JoinColumn({
     name: 'category_id',
@@ -93,14 +92,13 @@ export class EventEntity {
   })
   category: CatalogueEntity;
 
-  @ManyToOne(() => UserEntity)
-  @JoinColumn({
-    name: 'organizer_id',
-    foreignKeyConstraintName: 'event_user_id_foreign_key',
+  @Column({
+    name: 'organizer_id', //userId
+    type: 'uuid',
   })
-  organizer: UserEntity;
+  organizer: string;
 
-  @ManyToOne(() => AddressEntity)
+  @ManyToOne(() => AddressEntity, {nullable:false, cascade: true})
   @JoinColumn({
     name: 'address_id',
     foreignKeyConstraintName: 'event_address_id_foreign_key',
@@ -114,13 +112,13 @@ export class EventEntity {
   })
   hasSponsors: boolean;
 
-  @OneToMany(() => SponsorEntity, (sponsor) => sponsor.event)
+  @OneToMany(() => SponsorEntity, (sponsor) => sponsor.event, {cascade: true})
   sponsors: SponsorEntity[];
 
-  @OneToMany(() => RegistrationEntity, (registration) => registration.event)
+  @OneToMany(() => RegistrationEntity, (registration) => registration.event, {cascade: true})
   registrations: RegistrationEntity[];
 
-  @OneToMany(() => TicketTypeEntity, (ticket_type) => ticket_type.event)
-  ticket_types: TicketTypeEntity[];
+  @OneToMany(() => TicketTypeEntity, (ticket_type) => ticket_type.event, {cascade: true})
+  ticketTypes: TicketTypeEntity[];
 
 }

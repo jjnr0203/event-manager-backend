@@ -1,8 +1,16 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString} from 'class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { CreateSponsorDto } from '../sponsor/create-sponsor.dto';
 import { CatalogueEntity } from '../../entities/catalogue.entity';
-import { UserEntity } from 'src/modules/auth/entities/user.entity';
 import { CreateAddressDto } from '../address/create-address.dto';
+import { CreateTicketTypeDto } from '../ticket_type/create-ticket-type.dto';
+import { Type } from 'class-transformer';
 
 export class CreateEventDto {
   @IsNotEmpty()
@@ -14,30 +22,40 @@ export class CreateEventDto {
   description: string;
 
   @IsNotEmpty()
-  @IsDate()
-  start_date: Date;
+  // @IsDate()
+  startDate: Date;
 
   @IsNotEmpty()
-  @IsDate()
-  end_date: Date;
+  // @IsDate()
+  endDate: Date;
 
   @IsNotEmpty()
-  status: CatalogueEntity;
-
+  @IsUUID()
+  state: string;
+  
   @IsNotEmpty()
   @IsBoolean()
   isPublic: boolean;
-
+  
   @IsNotEmpty()
   category: CatalogueEntity;
 
   @IsNotEmpty()
-  organizer: UserEntity;
+  organizer: string;
 
   @IsNotEmpty()
+  @Type(() => CreateAddressDto)
   address: CreateAddressDto;
-  
+
+  @IsBoolean()
+  hasSponsors: boolean;
+
   @IsOptional()
   sponsors?: CreateSponsorDto[];
-  
+
+  @IsNotEmpty()
+  @Type(() => CreateTicketTypeDto)
+  ticketTypes: CreateTicketTypeDto[];
+
 }
+  

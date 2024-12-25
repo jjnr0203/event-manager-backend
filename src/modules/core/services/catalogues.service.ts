@@ -8,11 +8,15 @@ import { CatalogueEntity } from '../entities/catalogue.entity';
 export class CataloguesService {
   constructor(
     @Inject(CoreRepositoryEnum.CATALOGUE_REPOSITORY)
-    private repository: Repository<CatalogueEntity>,
+    private readonly repository: Repository<CatalogueEntity>,
   ) {}
+  async insertMany(createCatalogueDto: CreateCatalogueDto[]) {
+    const catalogues = this.repository.save(createCatalogueDto);
+    return catalogues;
+  }
 
   async create(payload: CreateCatalogueDto) {
-    const catalogue = await this.repository.create(payload);
+    const catalogue = this.repository.create(payload);
     await this.repository.save(catalogue);
     return catalogue;
   }

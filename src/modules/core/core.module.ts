@@ -7,25 +7,19 @@ import {
   AddressesController,
   CataloguesController,
   EventsController,
-  EmailsController,
   FilesController,
   PaymentsController,
-  RegistrationsController,
   SponsorsController,
   TicketTypesController,
   TicketsController,
-  TransactionsController,
 } from './controllers';
 import {
   AddressesService,
   CloudinaryService,
-  EmailsService,
   PaymentsService,
-  RegistrationsService,
   SponsorsService,
   TicketsService,
   TicketTypesService,
-  TransactionsService,
   FilesService,
 } from './services';
 
@@ -36,13 +30,10 @@ import {
     CataloguesController,
     EventsController,
     FilesController,
-    EmailsController,
     PaymentsController,
-    RegistrationsController,
     SponsorsController,
     TicketTypesController,
     TicketsController,
-    TransactionsController,
   ],
   providers: [
     ...coreProviders,
@@ -50,13 +41,10 @@ import {
     CataloguesService,
     EventsService,
     CloudinaryService,
-    EmailsService,
     PaymentsService,
-    RegistrationsService,
     SponsorsService,
     TicketTypesService,
     TicketsService,
-    TransactionsService,
     FilesService
   ],
 })

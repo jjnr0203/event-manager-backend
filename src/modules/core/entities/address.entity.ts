@@ -7,12 +7,13 @@ import {
   Column,
   } from 'typeorm';
 
-@Entity('addresses', { schema: 'core' })
+@Entity('addresses', {schema: 'core'})
 export class AddressEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @CreateDateColumn({
+    select: false,
     name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_timestamp',
@@ -46,13 +47,13 @@ export class AddressEntity {
   latitude: number;
 
   @Column({
-    name: 'altitude',
+    name: 'longitude',
     type: 'decimal',
     precision: 10,
     scale: 2,
     nullable: false, 
   })
-  altitude: number;
+  longitude: number;
 
   @Column({
     name: 'reference',
@@ -60,7 +61,7 @@ export class AddressEntity {
     nullable: false,
   })
   reference: string;
-
+ 
   @Column({
     name: 'address',
     type: 'varchar',

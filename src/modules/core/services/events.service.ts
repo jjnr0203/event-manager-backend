@@ -12,6 +12,7 @@ import {
 import { DataSource, Repository } from 'typeorm';
 import { EventEntity } from '../entities/event.entity';
 import { FilesService } from './files.service';
+import { UsersService } from 'src/modules/auth/services';
 
 @Injectable()
 export class EventsService {
@@ -19,6 +20,7 @@ export class EventsService {
     @Inject(CoreRepositoryEnum.EVENT_REPOSITORY)
     private readonly repository: Repository<EventEntity>,
     private readonly fileService: FilesService,
+    private readonly usersService: UsersService,
     @Inject(DatabaseProviderEnum.POSTGRES)
     private readonly dataSource: DataSource,
   ) {}
@@ -37,23 +39,46 @@ export class EventsService {
       });
       return result;
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       throw new BadRequestException('Error creating the event');
-    }
+    } 
   }
 
   async findAll() {
-    const events = await this.repository.find();
-    return events;
+    const events = await this.repository.find({
+      relations: {
+        category: true,
+        //   address: true,
+        //   sponsors: true,
+        //   ticketTypes: true,
+      },
+    });
+    const returnedEvents = await Promise.all(
+      events.map(async (event) => {
+        const images = await this.fileService.findByEvent(event.id);
+        return {
+          ...event,
+          images,
+        };
+      }),
+    );
+    return returnedEvents;
   }
 
   async findOne(id: string) {
     const event = await this.repository.findOne({
       where: { id },
+      relations: {
+        category: true,
+        address: true,
+        ticketTypes: true,
+        sponsors: true,
+      },
     });
-
+    const organizer = await this.usersService.findOne(event.organizer);
+    const images = await this.fileService.findByEvent(id);
     if (!event) throw new NotFoundException('Event not found');
-    return event;
+    return {...event, images, organizer};
   }
 
   // async create(payload: CreateEventDto) {
