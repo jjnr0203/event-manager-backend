@@ -11,12 +11,18 @@ import { SponsorEntity } from '../entities/sponsor.entity';
 import { TicketTypeEntity } from '../entities/ticket-type.entity';
 import { RegistrationEntity } from '../entities/registration.entity';
 import { TicketEntity } from '../entities/ticket.entity';
+import { OrderEntity } from '../entities/order.entity';
 
 export const coreProviders = [
   {
     provide: CoreRepositoryEnum.CATALOGUE_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(CatalogueEntity),
+    inject: [DatabaseProviderEnum.POSTGRES],
+  },
+  {
+    provide: CoreRepositoryEnum.ORDER_REPOSITORY,
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(OrderEntity),
     inject: [DatabaseProviderEnum.POSTGRES],
   },
   {

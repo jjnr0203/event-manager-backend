@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Order } from './order.entity';
+import { OrderEntity } from './order.entity';
 
 @Entity('order_details', {schema: 'core'})
 export class OrderDetail {
@@ -18,7 +18,7 @@ export class OrderDetail {
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
-  @ManyToOne(() => Order, order => order.orderDetails)
-  order: Order;
+  @ManyToOne(() => OrderEntity, order => order.orderDetails)
+  order: OrderEntity;
 }
 

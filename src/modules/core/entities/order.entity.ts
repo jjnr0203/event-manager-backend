@@ -3,7 +3,7 @@ import { OrderDetail } from './order-detail.entity';
 
 
 @Entity('orders', {schema: 'core'})
-export class Order {
+export class OrderEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

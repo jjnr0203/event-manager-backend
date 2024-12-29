@@ -15,6 +15,8 @@ const envsSchema = joi
     CLOUD_NAME:joi.string().required(),
     CLOUDINARY_SECRET:joi.string().required(),
     CLOUDINARY_KEY:joi.string().required(),
+    PAYPAL_CLIENT_ID:joi.string().required(),
+    PAYPAL_CLIENT_SECRET:joi.string().required(),
   })
   .unknown(true);
 
@@ -39,5 +41,7 @@ export const envs = {
     name:envVars.CLOUD_NAME,
     cloudinarySecret:envVars.CLOUDINARY_SECRET,
     cloudinaryKey:envVars.CLOUDINARY_KEY,    
-  }
+  },
+  paypalClientSecret:envVars.PAYPAL_CLIENT_SECRET,
+  paypalClientId:envVars.PAYPAL_CLIENT_ID
 };

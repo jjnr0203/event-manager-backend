@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { coreProviders } from './providers';
 import { DatabaseModule } from 'src/database/database.module';
-import { EventsService } from './services/events.service';
 import { CataloguesService } from './services/catalogues.service';
 import {
   AddressesController,
   CataloguesController,
   EventsController,
   FilesController,
-  PaymentsController,
+  OrdersController,
+  PaymentController,
   SponsorsController,
   TicketTypesController,
   TicketsController,
@@ -16,11 +16,13 @@ import {
 import {
   AddressesService,
   CloudinaryService,
-  PaymentsService,
   SponsorsService,
   TicketsService,
   TicketTypesService,
   FilesService,
+  PaymentService,
+  OrdersService,
+  EventsService
 } from './services';
 
 @Module({
@@ -30,10 +32,11 @@ import {
     CataloguesController,
     EventsController,
     FilesController,
-    PaymentsController,
+    PaymentController,
     SponsorsController,
     TicketTypesController,
     TicketsController,
+    OrdersController,
   ],
   providers: [
     ...coreProviders,
@@ -41,11 +44,12 @@ import {
     CataloguesService,
     EventsService,
     CloudinaryService,
-    PaymentsService,
     SponsorsService,
     TicketTypesService,
     TicketsService,
-    FilesService
+    FilesService,
+    PaymentService,
+    OrdersService,
   ],
 })
 export class CoreModule {}

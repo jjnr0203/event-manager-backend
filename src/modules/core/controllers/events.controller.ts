@@ -32,35 +32,26 @@ export class EventsController {
     const event = this.eventsService.findOne(id);
     return event;
   }
+  
+  @Get('organizer/:id')
+  findByOrganizer(@Param('id') id: string) {
+    const events = this.eventsService.findByOrganizer(id);
+    return events; 
+  }
 
   @Post('')
-  @UseInterceptors(
-    FilesInterceptor('images', 3, {
-      limits: {
-        fileSize: CloudinaryImageConfig.maxFileSize,
-      },
-      fileFilter: (req, file, callback) => {
-        if (!CloudinaryImageConfig.allowedMimeTypes.includes(file.mimetype)) {
-          return callback(
-            new BadRequestException('File type not allowed'),
-            false,
-          );
-        }
-        callback(null, true);
-      },
-    }),
-  )
+  @UseInterceptors(FilesInterceptor('images', 3))
   async create(
     @UploadedFiles(FilesValidationPipe)
     files: Express.Multer.File[],
     @Body('event', ParseJsonPipe) createEventDto: any,
   ) {
     console.log(createEventDto);
-    
+
     const event = await this.eventsService.create(files, createEventDto);
     return event;
   }
- 
+
   @Patch(':id')
   async update(
     @Param('id') id: string,

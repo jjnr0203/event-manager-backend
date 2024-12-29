@@ -23,7 +23,7 @@ export class EventsService {
     private readonly usersService: UsersService,
     @Inject(DatabaseProviderEnum.POSTGRES)
     private readonly dataSource: DataSource,
-  ) {}
+  ) { }
 
   async create(files: Express.Multer.File[], createEventDto: CreateEventDto) {
     try {
@@ -41,11 +41,33 @@ export class EventsService {
     } catch (error) {
       console.log(error);
       throw new BadRequestException('Error creating the event');
-    } 
+    }
   }
 
   async findAll() {
     const events = await this.repository.find({
+      relations: {
+        category: true,
+        //   address: true,
+        //   sponsors: true,
+        //   ticketTypes: true,
+      },
+    });
+    const returnedEvents = await Promise.all(
+      events.map(async (event) => {
+        const images = await this.fileService.findByEvent(event.id);
+        return {
+          ...event,
+          images,
+        };
+      }),
+    );
+    return returnedEvents;
+  }
+
+  async findByOrganizer(organizerId: string) {
+    const events = await this.repository.find({
+      where: { organizer: organizerId },
       relations: {
         category: true,
         //   address: true,
@@ -78,7 +100,7 @@ export class EventsService {
     const organizer = await this.usersService.findOne(event.organizer);
     const images = await this.fileService.findByEvent(id);
     if (!event) throw new NotFoundException('Event not found');
-    return {...event, images, organizer};
+    return { ...event, images, organizer };
   }
 
   // async create(payload: CreateEventDto) {
