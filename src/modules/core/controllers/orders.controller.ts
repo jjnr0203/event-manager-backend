@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Res } from '@nestjs/common';
 import { CreateOrderDto } from '../dto/orders/create-order.dto';
 import { OrdersService, TicketsService } from '../services';
 
@@ -33,7 +33,7 @@ export class OrdersController {
     const order = await this.ordersService.findOne(id);
     return order;
   }
-
+ 
   // @MessagePattern('payOrder')
   // async payOrder(@Payload() orderId: string) {
   //   const order = await this.ordersService.payOrder(orderId);

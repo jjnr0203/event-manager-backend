@@ -18,10 +18,10 @@ export class OrderEntity {
 
   @Column({
     type: 'enum',
-    enum: ['pending', 'completed', 'canceled'],
+    enum: ['pending', 'completed', 'cancelled'],
     default: 'pending'
   })
-  status: 'pending' | 'completed' | 'canceled';
+  status: 'pending' | 'completed' | 'cancelled';
 
   @Column({ default: false })
   paid: boolean;

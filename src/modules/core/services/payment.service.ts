@@ -1,4 +1,9 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { envs } from 'src/config/envs';
 import { PaymentSessionDto } from '../dto/payment/payment.dto';
 import {
@@ -34,13 +39,6 @@ export class PaymentService {
   async createOrder(payment: PaymentSessionDto) {
     try {
       const orderRequest: OrderRequest = {
-        payer: {
-          emailAddress: 'correoTest@gmail.com',
-          name: {
-            givenName: 'nameTest',
-            surname: 'surnameTest',
-          },
-        },
         intent: CheckoutPaymentIntent.Capture,
 
         purchaseUnits: [
@@ -85,15 +83,13 @@ export class PaymentService {
         id: orderId,
       });
       let parseBody: CapturedOrder;
-      if (typeof body === 'string') {
-        parseBody = JSON.parse(body);
-        if (parseBody.status === 'COMPLETED') {
-          const orderId = parseBody.purchase_units[0].reference_id;
-          this.payOrder(orderId);
-        }
-        return parseBody;
+      if (typeof body === 'string') parseBody = JSON.parse(body);
+
+      if (parseBody.status === 'COMPLETED') {
+        const orderId = parseBody.purchase_units[0].reference_id;
+        this.payOrder(orderId);
       }
-      return body;
+      return parseBody;
     } catch (error) {
       console.log(error);
       if (error instanceof ApiError) {
@@ -105,22 +101,6 @@ export class PaymentService {
     }
   }
 
-  async payOrder(orderId: string) {
-    const order = await this.orderRepository.findOne({
-      where: { id: orderId },
-      relations: ['orderDetails'],
-    });
-    order.status = 'completed';
-    order.paid = true;
-    return await this.orderRepository.save(order);
-  }
-
-  // async cancelOrder(orderId: string) {
-  //   const canceledOrder = await firstValueFrom(
-  //     this.client.send('cancelOrder', orderId),
-  //   );
-  //   return canceledOrder;
-  // }
 
   private getItems(payment: PaymentSessionDto) {
     return payment.items.map((item) => ({
@@ -138,5 +118,37 @@ export class PaymentService {
       0,
     );
     return total.toFixed(2);
+  }
+
+  async payOrder(orderId: string) {
+    const order = await this.orderRepository.findOne({
+      where: { id: orderId },
+      relations: ['orderDetails'],
+    });
+    order.status = 'completed';
+    order.paid = true;
+    return await this.orderRepository.save(order);
+  }
+
+  async cancelOrder(orderId: string) {
+    try {
+      const { body } = await this.ordersController.ordersGet({
+        id: orderId,
+      });
+
+      let parseBody: CapturedOrder;
+
+      if (typeof body === 'string') parseBody = JSON.parse(body);
+      const id = parseBody.purchase_units[0].reference_id;
+
+      const order = await this.orderRepository.findOne({
+        where: { id: id },
+      });
+      order.status = 'cancelled';
+      return await this.orderRepository.save(order);
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException();
+    }
   }
 }

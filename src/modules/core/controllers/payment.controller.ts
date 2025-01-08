@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { PaymentSessionDto } from '../dto/payment/payment.dto';
 import { PaymentService } from '../services/payment.service';
 
@@ -20,8 +20,10 @@ export class PaymentController {
   async successOrder() {
     return 'successed';
   }
-  @Get('cancell')
-  async cancellOrder() {
-    return 'cancelled';
+  @Patch('cancel/:id')
+  async cancelOrder(@Param('id') id: string) {
+    const order = await this.paymentService.cancelOrder(id);
+
+    return order;
   }
 }

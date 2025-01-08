@@ -15,7 +15,7 @@ import { CreateOrderDto } from '../dto/orders/create-order.dto';
 export class OrdersService {
   constructor(
     @Inject(CoreRepositoryEnum.ORDER_REPOSITORY)
-    private readonly orderRepository: Repository<OrderEntity>,
+    private readonly repository: Repository<OrderEntity>,
     private readonly paymentService: PaymentService,
     private readonly ticketTypesService: TicketTypesService,
   ) {}
@@ -36,7 +36,7 @@ export class OrdersService {
       0,
     );
 
-    const order = this.orderRepository.create({
+    const order = this.repository.create({
       userId: createOrderDto.userId,
       totalAmount,
       orderDetails: ticketTypes.map((ticketType) => ({
@@ -48,7 +48,7 @@ export class OrdersService {
         ).quantity,
       })),
     });
-    return await this.orderRepository.save(order);
+    return await this.repository.save(order);
   }
 
   async createPaymentSession(order: OrderEntity) {
@@ -68,13 +68,13 @@ export class OrdersService {
   }
 
   async findAll() {
-    return await this.orderRepository.find({
+    return await this.repository.find({
       relations: ['orderDetails'],
     });
   }
 
   async findByUser(userId: string) {
-    const orders = await this.orderRepository.find({
+    const orders = await this.repository.find({
       where: { userId, paid: true },
       relations: {
         orderDetails: true,
@@ -92,15 +92,12 @@ export class OrdersService {
   }
 
   async findOne(id: string) {
-    const order = await this.orderRepository.findOne({
+    const order = await this.repository.findOne({
       where: { id },
       relations: ['orderDetails'],
     });
     if (!order)
-      throw new NotFoundException({
-        status: HttpStatus.NOT_FOUND,
-        message: 'Order not found',
-      });
+      throw new NotFoundException('Order not found');
 
     const ticketType = await this.ticketTypesService.findOne(
       order.orderDetails[0].ticketTypeId,
@@ -108,23 +105,10 @@ export class OrdersService {
 
     return { ...order, ticketType };
   }
-
-  async payOrder(id: string) {
-    const order = await this.findOne(id);
-    order.status = 'completed';
-    order.paid = true;
-    return await this.orderRepository.save(order);
-  }
-
-  async cancelOrder(id: string) {
-    const order = await this.findOne(id);
-    order.status = 'canceled';
-    return await this.orderRepository.save(order);
-  }
-
+  
   async remove(id: string) {
     const order = await this.findOne(id);
-    await this.orderRepository.remove(order);
+    await this.repository.remove(order);
     return { id };
   }
 }
